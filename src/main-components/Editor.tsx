@@ -5,6 +5,7 @@ import LanguageSelect from "./LanguageSelect";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { generatePID } from "@/lib/generatePID";
+import { PollAPI } from "@/lib/pollAPI";
 
 export const Editor2 = () => {
   const [language, setLanguage] = React.useState("javascript");
@@ -31,6 +32,8 @@ export const Editor2 = () => {
           },
         }
       );
+      const result = PollAPI(`/api/pollgraphqlresult/?pid=${pid}`, 100, 10);
+      await result;
     } catch (error) {}
   };
 
@@ -52,6 +55,9 @@ export const Editor2 = () => {
           },
         }
       );
+
+      const result = PollAPI(`/api/pollresult/?pid=${pid}`, 100, 10);
+      await result;
     } catch (error) {}
   };
   return (
@@ -68,7 +74,8 @@ export const Editor2 = () => {
         defaultValue="// some comment"
         theme="vs-dark"
       />
-      <Button onClick={handleSubmit}>Run</Button>;
+      <Button onClick={handleRun}>Run</Button>;
+      <Button onClick={handleSubmit}>Submit</Button>;
     </div>
   );
 };
