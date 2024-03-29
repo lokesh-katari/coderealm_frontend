@@ -4,7 +4,8 @@ export async function GET(request: Request) {
   let url = new URL(request.url);
   let params = url.searchParams;
   let pid = params.get("pid");
-
+  // pid = "17117063534174087";
+  // let pid;
   if (pid === null) {
     return Response.json({
       status: "error",
@@ -15,17 +16,18 @@ export async function GET(request: Request) {
   }
 
   try {
-    let data = await db.codeResponse.findUnique({
+    let data = await db.submissions.findUnique({
       select: {
-        PID: true,
+        pid: true,
         id: true,
         language: true,
         memory: true,
         runtime: true,
         testcases: true,
+        code: true,
       },
       where: {
-        PID: pid,
+        pid: pid,
       },
     });
     return Response.json({

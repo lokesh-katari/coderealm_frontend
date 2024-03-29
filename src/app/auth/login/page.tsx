@@ -18,7 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { API_URL } from "../../../../constants/env";
+
 import toast from "react-hot-toast";
 
 const formSchema = z.object({
@@ -44,7 +44,7 @@ export default function RegisterForm() {
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
     console.log(values);
     try {
-      const client = new AuthServiceClient(API_URL);
+      const client = new AuthServiceClient("http://localhost:50051");
       const req = new RegisterUserRequest();
       req.setEmail("lokeshk123@gmail.com");
       req.setPassword("lokesh123");

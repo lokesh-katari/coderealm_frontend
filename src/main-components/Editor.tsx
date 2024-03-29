@@ -7,7 +7,7 @@ import axios from "axios";
 import { generatePID } from "@/lib/generatePID";
 import { PollAPI } from "@/lib/pollAPI";
 
-export const Editor2 = () => {
+export const CodeEditor = () => {
   const [language, setLanguage] = React.useState("javascript");
   const [code, setCode] = React.useState<string>("");
   const handleLanguageSelect = (value: string) => {
@@ -16,7 +16,7 @@ export const Editor2 = () => {
   const handleSubmit = async () => {
     console.log(code);
     try {
-      const pid = generatePID();
+      let pid = generatePID();
 
       let { data } = await axios.post(
         "/api/submitCode",
@@ -25,6 +25,7 @@ export const Editor2 = () => {
           language,
           pid,
           email: "asdf",
+          reqType: "submit",
         },
         {
           headers: {
@@ -39,15 +40,17 @@ export const Editor2 = () => {
 
   const handleRun = async () => {
     try {
-      const pid = generatePID();
+      let pid = generatePID();
 
-      let { data } = await axios.post(
+      await axios.post(
         "/api/submitCode",
         {
           code,
           language,
           pid,
           email: "asdf",
+
+          reqType: "run",
         },
         {
           headers: {
@@ -56,7 +59,8 @@ export const Editor2 = () => {
         }
       );
 
-      const result = PollAPI(`/api/pollresult/?pid=${pid}`, 100, 10);
+      const result = PollAPI(`/api/pollresult/${pid}`, 100, 10);
+
       await result;
     } catch (error) {}
   };
