@@ -6,7 +6,7 @@ export default function UserProfile() {
     <>
       <div className="h-screen w-screen flex justify-center items-center m-0 ">
         <div className="h-4/5  w-11/12 grid grid-cols-3 grid-rows-3 gap-4 ">
-          <div className="row-span-3 ">
+          <div className="row-span-3 w-5/6 ">
             <UserDetails />
           </div>
           <div className=" col-span-2">

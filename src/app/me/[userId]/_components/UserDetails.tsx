@@ -64,7 +64,7 @@ const UserDetails = () => {
   };
   return (
     <section>
-      <div className="flex items-center justify-center px-4 py-5  sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+      <div className="flex items-center justify-center px-4   sm:px-6 sm:py-6 lg:px-8 lg:py-24">
         <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
           <div className=" box-border ">
             <div className="border-2 flex rounded-full w-3/5 items-center justify-center">
@@ -139,9 +139,7 @@ const UserDetails = () => {
                               {...field}
                             />
                           </FormControl>
-                          <FormDescription>
-                            Password must be at least 6 characters.
-                          </FormDescription>
+  
                           <FormMessage />
                         </FormItem>
                       )}
@@ -162,9 +160,7 @@ const UserDetails = () => {
                               {...field}
                             />
                           </FormControl>
-                          <FormDescription>
-                            Password must be at least 6 characters.
-                          </FormDescription>
+
                           <FormMessage />
                         </FormItem>
                       )}

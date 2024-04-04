@@ -5,7 +5,7 @@ export async function POST(request: Request) {
 
   const kafka = new Kafka({
     clientId: "my-app",
-    brokers: ["kafka:9092"],
+    brokers: ["my-cluster-kafka-bootstrap:9092"],
   });
   const producer = kafka.producer();
   await producer.connect();

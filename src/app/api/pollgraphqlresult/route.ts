@@ -30,6 +30,15 @@ export async function GET(request: Request) {
         pid: pid,
       },
     });
+
+    if (data === null) {
+      return Response.json({
+        status: "error",
+        data: {
+          message: "No data found",
+        },
+      });
+    }
     return Response.json({
       status: "success",
       data: {
