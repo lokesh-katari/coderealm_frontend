@@ -3,7 +3,7 @@ import {
   codeResponseState,
   codeSubmissionLoadingState,
 } from "@/atoms/codeSubmission.atom";
-import { CodeEditor } from "@/main-components/Editor";
+import { CodeEditor } from "@/main-components/CodeEditor";
 import TestCasesPassed from "@/main-components/TestCasesPassed";
 import { rgbToHex } from "@mui/material";
 import React, { useState } from "react";
@@ -11,7 +11,7 @@ import { useRecoilValue } from "recoil";
 import SplitPane, { Pane } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
 
-const page = () => {
+const Page = () => {
   const [sizes, setSizes] = useState<(number | string)[]>([250, "auto"]);
   const [sizes1, setSizes1] = useState<(number | string)[]>([400, "auto"]);
   const [sizes2, setSizes2] = useState<(number | string)[]>([500, "auto"]);
@@ -100,4 +100,4 @@ const page = () => {
   //    <div>hi</div>;
 };
 
-export default page;
+export default Page;

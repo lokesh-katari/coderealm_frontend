@@ -62,7 +62,7 @@ const TestCasesPassed: React.FC<TestCasesPassedProps> = ({
         }
       });
     }
-  }, [testcasespassed]);
+  }, [testcasespassed, mode]);
 
   return (
     <>

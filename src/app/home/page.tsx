@@ -1,4 +1,4 @@
-import { CodeEditor } from "@/main-components/Editor";
+import { CodeEditor } from "@/main-components/CodeEditor";
 import React from "react";
 
 const page = () => {

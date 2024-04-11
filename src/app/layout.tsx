@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+
 import RecoilContextProvider from "./recoilContextProvider";
 import "./globals.css";
 import { Navbar } from "@/main-components/Navbar";
-const inter = Inter({ subsets: ["latin"] });
+
 import { Toaster } from "react-hot-toast";
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Toaster position="top-center" />
         <RecoilContextProvider>
           <Navbar />
