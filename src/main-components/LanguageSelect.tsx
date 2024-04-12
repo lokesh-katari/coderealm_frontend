@@ -21,14 +21,14 @@ export function LanguageSelect({
   };
   return (
     <Select onValueChange={handleSelect}>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="languages" />
+      <SelectTrigger className="w-[180px] dark text-white ">
+        <SelectValue placeholder="languages" className="" />
       </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Languages</SelectLabel>
+      <SelectContent className="dark">
+        <SelectGroup className="dark">
+          <SelectLabel className="dark">Languages</SelectLabel>
           {data.map((item) => (
-            <SelectItem key={item} value={item}>
+            <SelectItem className="dark" key={item} value={item}>
               {item}
             </SelectItem>
           ))}

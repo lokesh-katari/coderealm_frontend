@@ -57,26 +57,26 @@ export const CodeEditor = () => {
 
       console.log("running code from the editor");
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      // await axios.post(
-      //   "/api/submitCode",
-      //   {
-      //     code,
-      //     language,
-      //     pid,
-      //     email: "asdf",
+      await axios.post(
+        "/api/submitCode",
+        {
+          code,
+          language,
+          pid,
+          email: "asdf",
 
-      //     reqType: "run",
-      //   },
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
+          reqType: "run",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      // const result = PollAPI(`/api/pollresult/${pid}`, 500, 10);
+      const result = PollAPI(`/api/pollresult/${pid}`, 500, 10);
 
-      // setCodeResponse(await result);
+      setCodeResponse(await result);
       console.log("loading finish");
       setCodeResponse("this is result");
 
