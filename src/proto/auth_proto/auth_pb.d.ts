@@ -9,6 +9,9 @@ export class RegisterUserRequest extends jspb.Message {
   getPassword(): string;
   setPassword(value: string): RegisterUserRequest;
 
+  getName(): string;
+  setName(value: string): RegisterUserRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RegisterUserRequest.AsObject;
   static toObject(includeInstance: boolean, msg: RegisterUserRequest): RegisterUserRequest.AsObject;
@@ -21,6 +24,7 @@ export namespace RegisterUserRequest {
   export type AsObject = {
     email: string,
     password: string,
+    name: string,
   }
 }
 

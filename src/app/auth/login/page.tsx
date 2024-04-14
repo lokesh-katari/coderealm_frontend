@@ -7,7 +7,10 @@ import { z } from "zod";
 import { AuthServiceClient } from "@/proto/auth_proto/AuthServiceClientPb";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { RegisterUserRequest } from "@/proto/auth_proto/auth_pb";
+import {
+  LoginUserRequest,
+  RegisterUserRequest,
+} from "@/proto/auth_proto/auth_pb";
 import {
   Form,
   FormControl,
@@ -44,14 +47,14 @@ export default function RegisterForm() {
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
     console.log(values);
     try {
-      const client = new AuthServiceClient("auth:50051");
-      const req = new RegisterUserRequest();
-      req.setEmail("lokeshk123@gmail.com");
-      req.setPassword("lokesh123");
-      console.log(client, "client");
+      const client = new AuthServiceClient("http://localhost:8000");
+      const req = new LoginUserRequest();
+      req.setEmail(values.email);
+      req.setPassword(values.password);
+
       let resp = await client.loginUser(req, null);
       console.log(resp, "resp");
-
+      console.log(resp.toObject(), "resp", req.toObject());
       // router.push("/home");
     } catch (error) {
       toast.error("error registering");
@@ -139,7 +142,7 @@ export default function RegisterForm() {
                 <div>
                   <Button
                     type="submit"
-                    className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                    className="inline-flex w-full items-center justify-center rounded-md bg-slate-950  px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     Get started <ArrowRight className="ml-2" size={16} />
                   </Button>
@@ -163,22 +166,6 @@ export default function RegisterForm() {
                 </svg>
               </span>
               Sign in with Google
-            </button>
-            <button
-              type="button"
-              className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
-            >
-              <span className="mr-2 inline-block">
-                <svg
-                  className="h-6 w-6 text-[#2563EB]"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M13.397 20.997v-8.196h2.765l.411-3.209h-3.176V7.548c0-.926.258-1.56 1.587-1.56h1.684V3.127A22.336 22.336 0 0 0 14.201 3c-2.444 0-4.122 1.492-4.122 4.231v2.355H7.332v3.209h2.753v8.202h3.312z"></path>
-                </svg>
-              </span>
-              Sign in with Facebook
             </button>
           </div>
         </div>

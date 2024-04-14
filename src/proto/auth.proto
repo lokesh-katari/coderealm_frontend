@@ -13,6 +13,7 @@ service AuthService {
 message RegisterUserRequest {
   string email = 1;
   string password = 2;
+  string name = 3;
 }
 
 message RegisterUserResponse {

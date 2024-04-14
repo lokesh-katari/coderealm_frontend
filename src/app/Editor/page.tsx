@@ -77,7 +77,7 @@ const Page = () => {
     } catch (error) {}
   };
   return (
-    <div style={{ height: "90vh" }}>
+    <div style={{ height: "93vh" }} className="bg-slate-400 px-1">
       <SplitPane
         split="vertical"
         sizes={sizes}
@@ -87,9 +87,9 @@ const Page = () => {
         <Pane
           maxSize={"80%"}
           minSize={"30%"}
-          className="border-red-100 border-2 rounded-xl bg-slate-900"
+          className=" border-2 rounded-xl bg-slate-900"
         >
-          <div className="flex justify-between">
+          <div className="flex justify-between border-x-slate-200">
             <LanguageSelect
               data={["asdf", "sdfasdf"]}
               onSelect={handleChange}
@@ -115,10 +115,10 @@ const Page = () => {
           </div>
         </Pane>
 
-        <Pane className="" minSize={"30%"} maxSize={"70%"}>
+        <Pane className="pl-1" minSize={"30%"} maxSize={"70%"}>
           <div
             style={{ background: "#1e1e1e" }}
-            className="border-red-100 h-full flex flex-col bg-black
+            className=" h-full flex flex-col border-x-slate-200
               border-2
               rounded-xl overflow-auto p-4"
           >
@@ -133,7 +133,6 @@ const Page = () => {
       </SplitPane>
     </div>
   );
-  //    <div>hi</div>;
 };
 
 export default Page;
