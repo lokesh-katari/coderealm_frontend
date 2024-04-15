@@ -4,11 +4,27 @@ import landing from "../../public/landing.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { authClient } from "@/lib/authServiceClient";
+import Cookies from "js-cookie";
+import { GetUserRequest } from "@/proto/auth_proto/auth_pb";
+
 export default function Home() {
   useEffect(() => {
     AOS.init({
       mirror: true,
     });
+  }, []);
+  useEffect(() => {
+    const hasToken = async () => {
+      const authToken = Cookies.get("token");
+      if (authToken) {
+        let req = new GetUserRequest();
+        req.setToken(authToken);
+        let response = await authClient.getUser(req, null);
+        console.log(response);
+      }
+    };
+    hasToken();
   }, []);
   const containerStyle = {
     backgroundImage: `url(${landing.src})`,

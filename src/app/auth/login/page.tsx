@@ -21,8 +21,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import Cookies from "js-cookie";
 import toast from "react-hot-toast";
+import { Metadata } from "grpc-web";
+import { authClient } from "@/lib/authServiceClient";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -47,15 +49,21 @@ export default function RegisterForm() {
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
     console.log(values);
     try {
-      const client = new AuthServiceClient("http://localhost:8000");
+      const metadata: Metadata = {};
+      let authTOken = Cookies.get("token");
+      if (authTOken) {
+        metadata["authorization"] = authTOken;
+      }
+
       const req = new LoginUserRequest();
       req.setEmail(values.email);
       req.setPassword(values.password);
 
-      let resp = await client.loginUser(req, null);
-      console.log(resp, "resp");
-      console.log(resp.toObject(), "resp", req.toObject());
-      // router.push("/home");
+      let resp = await authClient.loginUser(req, metadata);
+      Cookies.set("token", resp.getToken(), { expires: 7 });
+      toast.success("logged in successfully");
+      console.log(resp.toObject());
+      router.push("/");
     } catch (error) {
       toast.error("error registering");
       console.log(error);

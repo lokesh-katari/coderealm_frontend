@@ -20,6 +20,8 @@ import {
 import { Input } from "@/components/ui/input";
 
 import toast from "react-hot-toast";
+import { authServiceClient } from "@/lib/authServiceClient";
+
 const formSchema = z
   .object({
     email: z.string().email({
@@ -58,13 +60,14 @@ export default function RegisterForm() {
       // toast.success(`${data.message}`);
       // toast.success("hi there");
       // console.log(data, "data");
-      const client = new AuthServiceClient("http:// localhost:8000");
+      // const client = new AuthServiceClient("http:// localhost:8000");
+
       const req = new RegisterUserRequest();
       req.setEmail(values.email);
       req.setPassword(values.password);
       req.setName(values.name);
       console.log(req, "req");
-      let resp = await client.registerUser(req, null);
+      let resp = await authServiceClient.registerUser(req, null);
       console.log(resp, "resp");
       router.push("/auth/login");
     } catch (error) {

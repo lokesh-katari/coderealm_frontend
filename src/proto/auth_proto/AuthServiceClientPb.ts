@@ -168,5 +168,48 @@ export class AuthServiceClient {
     this.methodDescriptorLogoutUser);
   }
 
+  methodDescriptorGetUser = new grpcWeb.MethodDescriptor(
+    '/auth.AuthService/GetUser',
+    grpcWeb.MethodType.UNARY,
+    auth_pb.GetUserRequest,
+    auth_pb.GetUserResponse,
+    (request: auth_pb.GetUserRequest) => {
+      return request.serializeBinary();
+    },
+    auth_pb.GetUserResponse.deserializeBinary
+  );
+
+  getUser(
+    request: auth_pb.GetUserRequest,
+    metadata: grpcWeb.Metadata | null): Promise<auth_pb.GetUserResponse>;
+
+  getUser(
+    request: auth_pb.GetUserRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: auth_pb.GetUserResponse) => void): grpcWeb.ClientReadableStream<auth_pb.GetUserResponse>;
+
+  getUser(
+    request: auth_pb.GetUserRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: auth_pb.GetUserResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/auth.AuthService/GetUser',
+        request,
+        metadata || {},
+        this.methodDescriptorGetUser,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/auth.AuthService/GetUser',
+    request,
+    metadata || {},
+    this.methodDescriptorGetUser);
+  }
+
 }
 

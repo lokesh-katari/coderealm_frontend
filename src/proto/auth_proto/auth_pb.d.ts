@@ -2,6 +2,44 @@ import * as jspb from 'google-protobuf'
 
 
 
+export class GetUserRequest extends jspb.Message {
+  getToken(): string;
+  setToken(value: string): GetUserRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetUserRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetUserRequest): GetUserRequest.AsObject;
+  static serializeBinaryToWriter(message: GetUserRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetUserRequest;
+  static deserializeBinaryFromReader(message: GetUserRequest, reader: jspb.BinaryReader): GetUserRequest;
+}
+
+export namespace GetUserRequest {
+  export type AsObject = {
+    token: string,
+  }
+}
+
+export class GetUserResponse extends jspb.Message {
+  getUser(): User | undefined;
+  setUser(value?: User): GetUserResponse;
+  hasUser(): boolean;
+  clearUser(): GetUserResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetUserResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetUserResponse): GetUserResponse.AsObject;
+  static serializeBinaryToWriter(message: GetUserResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetUserResponse;
+  static deserializeBinaryFromReader(message: GetUserResponse, reader: jspb.BinaryReader): GetUserResponse;
+}
+
+export namespace GetUserResponse {
+  export type AsObject = {
+    user?: User.AsObject,
+  }
+}
+
 export class RegisterUserRequest extends jspb.Message {
   getEmail(): string;
   setEmail(value: string): RegisterUserRequest;
