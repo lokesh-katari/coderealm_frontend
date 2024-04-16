@@ -158,7 +158,7 @@ if (goog.DEBUG && !COMPILED) {
  * @constructor
  */
 proto.auth.User = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.auth.User.repeatedFields_, null);
 };
 goog.inherits(proto.auth.User, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -1153,6 +1153,13 @@ proto.auth.LoginUserResponse.prototype.setToken = function(value) {
 
 
 
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.auth.User.repeatedFields_ = [6];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -1185,7 +1192,11 @@ proto.auth.User.prototype.toObject = function(opt_includeInstance) {
 proto.auth.User.toObject = function(includeInstance, msg) {
   var f, obj = {
     email: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    name: jspb.Message.getFieldWithDefault(msg, 2, "")
+    name: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    easyProblemCount: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    mediumProblemCount: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    hardProblemCount: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    solvedProblemsList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -1230,6 +1241,22 @@ proto.auth.User.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setName(value);
       break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setEasyProblemCount(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setMediumProblemCount(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setHardProblemCount(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.addSolvedProblems(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1273,6 +1300,34 @@ proto.auth.User.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = message.getEasyProblemCount();
+  if (f !== 0) {
+    writer.writeInt32(
+      3,
+      f
+    );
+  }
+  f = message.getMediumProblemCount();
+  if (f !== 0) {
+    writer.writeInt32(
+      4,
+      f
+    );
+  }
+  f = message.getHardProblemCount();
+  if (f !== 0) {
+    writer.writeInt32(
+      5,
+      f
+    );
+  }
+  f = message.getSolvedProblemsList();
+  if (f.length > 0) {
+    writer.writeRepeatedString(
+      6,
+      f
+    );
+  }
 };
 
 
@@ -1309,6 +1364,97 @@ proto.auth.User.prototype.getName = function() {
  */
 proto.auth.User.prototype.setName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional int32 Easy_Problem_count = 3;
+ * @return {number}
+ */
+proto.auth.User.prototype.getEasyProblemCount = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.auth.User} returns this
+ */
+proto.auth.User.prototype.setEasyProblemCount = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional int32 Medium_Problem_count = 4;
+ * @return {number}
+ */
+proto.auth.User.prototype.getMediumProblemCount = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.auth.User} returns this
+ */
+proto.auth.User.prototype.setMediumProblemCount = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional int32 Hard_Problem_count = 5;
+ * @return {number}
+ */
+proto.auth.User.prototype.getHardProblemCount = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.auth.User} returns this
+ */
+proto.auth.User.prototype.setHardProblemCount = function(value) {
+  return jspb.Message.setProto3IntField(this, 5, value);
+};
+
+
+/**
+ * repeated string solved_problems = 6;
+ * @return {!Array<string>}
+ */
+proto.auth.User.prototype.getSolvedProblemsList = function() {
+  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 6));
+};
+
+
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.auth.User} returns this
+ */
+proto.auth.User.prototype.setSolvedProblemsList = function(value) {
+  return jspb.Message.setField(this, 6, value || []);
+};
+
+
+/**
+ * @param {string} value
+ * @param {number=} opt_index
+ * @return {!proto.auth.User} returns this
+ */
+proto.auth.User.prototype.addSolvedProblems = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 6, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.auth.User} returns this
+ */
+proto.auth.User.prototype.clearSolvedProblemsList = function() {
+  return this.setSolvedProblemsList([]);
 };
 
 

@@ -1,30 +1,22 @@
 "use client";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import landing from "../../public/landing.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
-import { authClient } from "@/lib/authServiceClient";
-import Cookies from "js-cookie";
-import { GetUserRequest } from "@/proto/auth_proto/auth_pb";
+import { useEffect, useState } from "react";
+
+import { isUserLoggedIn, userState } from "@/atoms/user.atom";
 
 export default function Home() {
+  // const [user, setuser] = useRecoilState(userState);
+  // const [loggedIn, setLoggedIn] = useRecoilState(isUserLoggedIn);
+  // const [hasTokenRun, setHasTokenRun] = useRecoilState(isUserLoggedIn);
+  // const [showToast, setShowToast] = useState(false);
+
   useEffect(() => {
     AOS.init({
       mirror: true,
     });
-  }, []);
-  useEffect(() => {
-    const hasToken = async () => {
-      const authToken = Cookies.get("token");
-      if (authToken) {
-        let req = new GetUserRequest();
-        req.setToken(authToken);
-        let response = await authClient.getUser(req, null);
-        console.log(response);
-      }
-    };
-    hasToken();
   }, []);
   const containerStyle = {
     backgroundImage: `url(${landing.src})`,
@@ -35,27 +27,25 @@ export default function Home() {
   };
 
   return (
-    <RecoilRoot>
-      <div className="h-screen w-screen " style={containerStyle} id="home">
-        <div className="pl-24" data-aos="fade-right">
-          <h1
-            className="text-8xl text-slate-300 pt-72  animate__animated animate__slideInLeft  "
-            style={{
-              fontFamily: "Anek Bangla, sans-serif",
-              letterSpacing: "1px",
-            }}
-          >
-            Welcome to CodeRealm
-          </h1>
-          <p
-            className="text-5xl text-slate-300 pl-2 animate__animated animate__fadeInUp "
-            style={{ fontFamily: "Anek Bangla, sans-serif" }}
-          >
-            Best place to test your coding skills
-          </p>
-        </div>
+    <div className="h-screen w-screen " style={containerStyle} id="home">
+      <div className="pl-24" data-aos="fade-right">
+        <h1
+          className="text-8xl text-slate-300 pt-72  animate__animated animate__slideInLeft  "
+          style={{
+            fontFamily: "Anek Bangla, sans-serif",
+            letterSpacing: "1px",
+          }}
+        >
+          Welcome to CodeRealm
+        </h1>
+        <p
+          className="text-5xl text-slate-300 pl-2 animate__animated animate__fadeInUp "
+          style={{ fontFamily: "Anek Bangla, sans-serif" }}
+        >
+          Best place to test your coding skills
+        </p>
       </div>
-    </RecoilRoot>
+    </div>
   );
 }
 // import React, { useEffect, useState, useRef } from "react";

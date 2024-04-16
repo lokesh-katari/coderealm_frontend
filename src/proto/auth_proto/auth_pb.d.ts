@@ -137,6 +137,20 @@ export class User extends jspb.Message {
   getName(): string;
   setName(value: string): User;
 
+  getEasyProblemCount(): number;
+  setEasyProblemCount(value: number): User;
+
+  getMediumProblemCount(): number;
+  setMediumProblemCount(value: number): User;
+
+  getHardProblemCount(): number;
+  setHardProblemCount(value: number): User;
+
+  getSolvedProblemsList(): Array<string>;
+  setSolvedProblemsList(value: Array<string>): User;
+  clearSolvedProblemsList(): User;
+  addSolvedProblems(value: string, index?: number): User;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): User.AsObject;
   static toObject(includeInstance: boolean, msg: User): User.AsObject;
@@ -149,6 +163,10 @@ export namespace User {
   export type AsObject = {
     email: string,
     name: string,
+    easyProblemCount: number,
+    mediumProblemCount: number,
+    hardProblemCount: number,
+    solvedProblemsList: Array<string>,
   }
 }
 

@@ -20,7 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import toast from "react-hot-toast";
-import { authServiceClient } from "@/lib/authServiceClient";
+import { authClient } from "@/lib/authServiceClient";
 
 const formSchema = z
   .object({
@@ -67,7 +67,7 @@ export default function RegisterForm() {
       req.setPassword(values.password);
       req.setName(values.name);
       console.log(req, "req");
-      let resp = await authServiceClient.registerUser(req, null);
+      let resp = await authClient.registerUser(req, null);
       console.log(resp, "resp");
       router.push("/auth/login");
     } catch (error) {

@@ -1,7 +1,7 @@
 const { Kafka } = require("kafkajs");
 
 export async function POST(request: Request) {
-  const { code, language, pid, email, queId, reqType } = await request.json();
+  const { code, language, email, pid, queId, reqType } = await request.json();
 
   const kafka = new Kafka({
     clientId: "my-app",

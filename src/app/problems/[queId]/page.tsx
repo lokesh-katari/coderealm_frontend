@@ -37,8 +37,16 @@ const Page = () => {
           minSize={"30%"}
           className="border-red-100 border-2 rounded-xl"
         >
-          <div style={{ ...layoutCSS, background: "#1e1e1e" }}>
-            Bottom Pane1
+          <div
+            style={{ background: "#1e1e1e" }}
+            className="flex flex-col h-full text-slate-100"
+          >
+            <div className="pl-3">
+              <div className="text-2xl p-1 text-left">Title</div>
+              <div className="text-xl p-1 text-left">Description</div>
+              <div className="text-xl p-1 text-left">Input</div>
+              <div className="text-xl p-1 text-left">Output</div>
+            </div>
           </div>
         </Pane>
         <SplitPane

@@ -52,9 +52,8 @@ const Page = () => {
           code,
           language,
           pid,
-          email: "asdf",
-
-          reqType: "run",
+          email: "",
+          reqType: "general",
         },
         {
           headers: {
