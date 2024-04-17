@@ -1,15 +1,25 @@
 "use client";
 import {
+  cCodeatom,
   codeResponseState,
   codeSubmissionLoadingState,
+  cppCodeatom,
+  golangCodeatom,
+  javaCodeatom,
+  jsCodeatom,
+  pythonCodeatom,
+  userCode,
 } from "@/atoms/codeSubmission.atom";
 import { CodeEditor } from "@/main-components/CodeEditor";
 import TestCasesPassed from "@/main-components/TestCasesPassed";
 import { rgbToHex } from "@mui/material";
-import React, { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useParams, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import SplitPane, { Pane } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
+import { Problem, templates } from "../page";
+import { languageAtom } from "@/atoms/language.atom";
 
 const Page = () => {
   const [sizes, setSizes] = useState<(number | string)[]>([250, "auto"]);
@@ -17,6 +27,16 @@ const Page = () => {
   const [sizes2, setSizes2] = useState<(number | string)[]>([500, "auto"]);
   let output = useRecoilValue(codeResponseState);
   let loading = useRecoilValue(codeSubmissionLoadingState);
+  const [problem, setProblem] = useState<Problem>();
+  const [testCases, setTestCases] = useState<Problem["testcases"]>();
+  const [template, setTemplate] = useState<templates>();
+  const language = useRecoilValue(languageAtom);
+  const [cCode, setCCode] = useRecoilState(cCodeatom);
+  const [cppCode, setCppCode] = useRecoilState(cppCodeatom);
+  const [javaCode, setJavaCode] = useRecoilState(javaCodeatom);
+  const [jsCode, setJsCode] = useRecoilState(jsCodeatom);
+  const [pythonCode, setPythonCode] = useRecoilState(pythonCodeatom);
+  const [golangCode, setGolangCode] = useRecoilState(golangCodeatom);
   const layoutCSS = {
     height: "100%",
     display: "flex",
@@ -24,6 +44,29 @@ const Page = () => {
     justifyContent: "center",
   };
 
+  const params = useParams<{ queId: string }>();
+  const queId = params.queId;
+  useEffect(() => {
+    (async function () {
+      console.log(queId, "params");
+      const response = await fetch(`/api/getAllProblems/${queId}`);
+      const data = await response.json();
+      setProblem(data.problems);
+      setTestCases(data.problems.testCases);
+      setTemplate(data.problems.templates);
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (template) {
+      setCCode(template.c.userCode);
+      setCppCode(template.cpp.userCode);
+      setJavaCode(template.java.userCode);
+      setJsCode(template.javascript.userCode);
+      setPythonCode(template.python.userCode);
+      setGolangCode(template.golang.userCode);
+    }
+  }, [template]);
   return (
     <div style={{ height: "90vh" }}>
       <SplitPane
@@ -41,11 +84,59 @@ const Page = () => {
             style={{ background: "#1e1e1e" }}
             className="flex flex-col h-full text-slate-100"
           >
-            <div className="pl-3">
-              <div className="text-2xl p-1 text-left">Title</div>
-              <div className="text-xl p-1 text-left">Description</div>
-              <div className="text-xl p-1 text-left">Input</div>
-              <div className="text-xl p-1 text-left">Output</div>
+            <div className="p-3 mt-2 overflow-auto">
+              <div className="text-2xl p-1 text-left">{problem?.title}</div>
+              <div className="text-xl p-1 text-left">
+                {problem?.description}
+              </div>
+              <div className="text-xl p-1 text-left ">
+                {testCases?.map((testCase, index) => {
+                  return (
+                    <div className="mt-3">
+                      <div>Testcase {index + 1} :</div>
+                      <div className="bg-zinc-700 rounded-2xl mt-2 p-2">
+                        <div className="text-xl p-1 text-left">
+                          Input:
+                          {testCase.input}
+                        </div>
+                        <div className="text-xl p-1 text-left">
+                          output:
+                          {testCase.output}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="flex justify-between mt-6 p-3">
+                <div className="">
+                  Acceptance Rate:{" "}
+                  <span className="p-1 px-2 bg-zinc-700 rounded-full">
+                    {problem &&
+                      (problem.submissions.correct !== 0 ||
+                      problem.submissions.wrong !== 0
+                        ? `${Math.round(
+                            (problem.submissions.correct /
+                              (problem.submissions.correct +
+                                problem.submissions.wrong)) *
+                              100
+                          )}%`
+                        : "100%")}
+                  </span>
+                </div>
+                <div className="">
+                  Difficulty Level:{" "}
+                  <span className="p-1 px-2 bg-zinc-700 rounded-full">
+                    {problem?.difficulty === "easy" ? (
+                      <span style={{ color: "green" }}>Easy</span>
+                    ) : problem?.difficulty === "medium" ? (
+                      <span style={{ color: "yellow" }}>Medium</span>
+                    ) : (
+                      <span style={{ color: "red" }}>Hard</span>
+                    )}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </Pane>

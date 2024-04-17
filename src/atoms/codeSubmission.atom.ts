@@ -19,3 +19,38 @@ export const codeResponseState = atom({
   key: "codeResponseState",
   default: "",
 });
+
+export const userCode = atom({
+  key: "userCode",
+  default: "",
+});
+
+export const cCodeatom = atom({
+  key: "cCode",
+  default: "",
+});
+
+export const cppCodeatom = atom({
+  key: "cppCode",
+  default: "",
+});
+
+export const javaCodeatom = atom({
+  key: "javaCode",
+  default: "",
+});
+
+export const jsCodeatom = atom({
+  key: "jsCode",
+  default: "",
+});
+
+export const pythonCodeatom = atom({
+  key: "pythonCode",
+  default: "",
+});
+
+export const golangCodeatom = atom({
+  key: "golangCode",
+  default: "",
+});

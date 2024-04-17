@@ -15,11 +15,11 @@ datasource db {
   // relationMode = "prisma"
 }
 
-model submissions {
+model Codesubmissions {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   pid         String   @unique
-  queId       String
-  email       String
+  queId       String   @db.ObjectId
+  email       String?  @unique
   code        String
   language    String
   testcases   Int[]
@@ -27,15 +27,52 @@ model submissions {
   memory      String
   submittedAt DateTime @default(now())
   output      String
+  question    CodeQue? @relation(fields: [queId], references: [id])
+
+  @@map("submissions")
 }
 
-// ID          primitive.ObjectID `bson:"_id,omitempty"`
-// PID         string             `json:"pid"`
-// QueID       string             `json:"queId"`
-// Email       string             `json:"email"`
-// Language    string             `json:"language"`
-// Code        string             `json:"code"`
-// Output      string             `json:"output"`
-// SubmittedAT time.Time          `json:"submittedAt"`
-// Runtime     string             `json:"runtime"`
-// Memory      string             `json:"memory"`
+model CodeQue {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  difficulty      String
+  category        String
+  description     String
+  submissions     Submission
+  templates       Languages         @relation(fields: [templateId], references: [id])
+  templateId      String            @unique @db.ObjectId
+  testCases       TestCase[]
+  Codesubmissions Codesubmissions[]
+
+  @@map("CodeQues")
+}
+
+model Languages {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  // CodeQue    CodeQue?          @relation(fields: [queId], references: [id])
+
+  python     LanguageTemplate?
+  javascript LanguageTemplate?
+  golang     LanguageTemplate?
+  java       LanguageTemplate?
+  c          LanguageTemplate?
+  cpp        LanguageTemplate?
+  CodeQue    CodeQue?
+
+  @@map("Templates")
+}
+
+type LanguageTemplate {
+  userCode       String
+  hiddenTestCode String
+}
+
+type Submission {
+  correct Int
+  wrong   Int
+}
+
+type TestCase {
+  input  String
+  output String
+}

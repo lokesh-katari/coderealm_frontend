@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect } from "react";
 import { TableDemo } from "../me/[userId]/_components/Table";
 import {
@@ -10,121 +11,105 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Link from "next/link";
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
+export type Problem = {
+  id: string;
+  title: string;
+  description: string;
+  difficulty: string;
+  category: string;
+  AcceptanceRate: string;
+  templateId: string;
+  templates: templates;
+  submissions: {
+    correct: number;
+    wrong: number;
+  };
+  testcases: [
+    {
+      input: string;
+      output: string;
+    }
+  ];
+};
 
+export type templates = {
+  python: {
+    userCode: string;
+    hiddenTestCode: string;
+  };
+  golang: {
+    userCode: string;
+    hiddenTestCode: string;
+  };
+  c: {
+    userCode: string;
+    hiddenTestCode: string;
+  };
+  java: {
+    userCode: string;
+    hiddenTestCode: string;
+  };
+  javascript: {
+    userCode: string;
+    hiddenTestCode: string;
+  };
+  cpp: {
+    userCode: string;
+    hiddenTestCode: string;
+  };
+};
 const page = () => {
+  const [problems, setProblems] = React.useState<Problem[]>([]);
+  useEffect(() => {
+    (async function () {
+      const response = await fetch("/api/getAllProblems");
+      const data = await response.json();
+      setProblems(data.problems);
+      console.log(problems, "problems");
+    })();
+  }, []);
   return (
     <div className="flex justify-center py-20 bg-slate-300 ">
-      <div className="w-[80vw] max-w-5xl dark bg-slate-950 text-white rounded-xl border-2 border-slate-600">
+      <div className="w-[80vw] max-w-4xl dark bg-slate-950 text-white rounded-xl border-2 border-slate-600">
         <Table>
           <TableHeader className="font-bold">
             <TableRow className="font-bold">
               <TableHead>Title</TableHead>
-              <TableHead>Language</TableHead>
-              <TableHead className="text-right">Category</TableHead>
+              <TableHead className="">Category</TableHead>
+              <TableHead>Difficulty level</TableHead>
               <TableHead className="text-right">Acceptance Rate</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {invoices.map((invoice) => (
-              <TableRow key={invoice.invoice}>
-                <TableCell className="font-medium">{invoice.invoice}</TableCell>
-                <TableCell>{invoice.paymentStatus}</TableCell>
-
-                <TableCell className="text-right">
-                  {invoice.totalAmount}
-                </TableCell>
-                <TableCell className="text-right">
-                  {invoice.totalAmount}
-                </TableCell>
-              </TableRow>
-            ))}
+            {problems.map((problem) => {
+              return (
+                <TableRow key={problem.id}>
+                  <Link href={`/problems/${problem.id}`}>
+                    <TableCell className="cursor-pointer">
+                      {problem.title}
+                    </TableCell>
+                  </Link>
+                  <TableCell className="">{problem.category}</TableCell>
+                  <TableCell>{problem.difficulty}</TableCell>
+                  <TableCell className="text-right">
+                    {
+                      // Calculate acceptance percentage only if both correct and wrong submissions are non-zero
+                      problem.submissions.correct !== 0 ||
+                      problem.submissions.wrong !== 0
+                        ? `${Math.round(
+                            (problem.submissions.correct /
+                              (problem.submissions.correct +
+                                problem.submissions.wrong)) *
+                              100
+                          )}%`
+                        : "100%"
+                    }
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </div>

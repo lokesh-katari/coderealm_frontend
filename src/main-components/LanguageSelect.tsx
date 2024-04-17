@@ -8,6 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useRecoilValue } from "recoil";
+import { languageAtom } from "@/atoms/language.atom";
 
 export function LanguageSelect({
   data,
@@ -19,10 +21,11 @@ export function LanguageSelect({
   const handleSelect = (value: any) => {
     onSelect(value);
   };
+  const lang = useRecoilValue(languageAtom);
   return (
     <Select onValueChange={handleSelect}>
       <SelectTrigger className="w-[180px] dark text-white ">
-        <SelectValue placeholder="languages" className="" />
+        <SelectValue placeholder={`${lang}`} className="" />
       </SelectTrigger>
       <SelectContent className="dark">
         <SelectGroup className="dark">

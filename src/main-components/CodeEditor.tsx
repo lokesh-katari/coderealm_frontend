@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import LanguageSelect from "./LanguageSelect";
 import { Button } from "@/components/ui/button";
@@ -8,22 +8,36 @@ import { generatePID } from "@/lib/generatePID";
 import { PollAPI } from "@/lib/pollAPI";
 import { useRecoilState } from "recoil";
 import {
+  cCodeatom,
   codeResponseState,
   codeSubmissionErrorState,
   codeSubmissionLoadingState,
+  cppCodeatom,
+  golangCodeatom,
+  javaCodeatom,
+  jsCodeatom,
+  pythonCodeatom,
+  userCode,
 } from "@/atoms/codeSubmission.atom";
 
+import { languageAtom } from "@/atoms/language.atom";
+
 export const CodeEditor = () => {
-  const [language, setLanguage] = React.useState("javascript");
+  const [language, setLanguage] = useRecoilState(languageAtom);
   const [codeResponse, setCodeResponse] = useRecoilState(codeResponseState);
   const [loading, setLoading] = useRecoilState(codeSubmissionLoadingState);
   const [error, setError] = useRecoilState(codeSubmissionErrorState);
-  const [code, setCode] = React.useState<string>("");
+  const [code, setCode] = useRecoilState(userCode);
+  const [cCode, setCCode] = useRecoilState(cCodeatom);
+  const [cppCode, setCppCode] = useRecoilState(cppCodeatom);
+  const [javaCode, setJavaCode] = useRecoilState(javaCodeatom);
+  const [jsCode, setJsCode] = useRecoilState(jsCodeatom);
+  const [pythonCode, setPythonCode] = useRecoilState(pythonCodeatom);
+  const [golangCode, setGolangCode] = useRecoilState(golangCodeatom);
   const handleLanguageSelect = (value: string) => {
     setLanguage(value);
   };
   const handleSubmit = async () => {
-    console.log(code);
     try {
       let pid = generatePID();
       setLoading(true);
@@ -87,12 +101,65 @@ export const CodeEditor = () => {
       setError(null);
     } catch (error) {}
   };
+  useEffect(() => {
+    let newCode;
+
+    switch (language) {
+      case "c":
+        newCode = cCode;
+        break;
+      case "cpp":
+        newCode = cppCode;
+        break;
+      case "java":
+        newCode = javaCode;
+        break;
+      case "javascript":
+        newCode = jsCode;
+        break;
+      case "python":
+        newCode = pythonCode;
+        break;
+      case "golang":
+        newCode = golangCode;
+        break;
+      default:
+        newCode = "";
+    }
+    setCode(newCode);
+  }, [language, cCode, cppCode, javaCode, jsCode, pythonCode, golangCode]);
+
+  const handleCodeChange = (newCode: string, lang: string) => {
+    switch (lang) {
+      case "c":
+        setCCode(newCode);
+        break;
+      case "cpp":
+        setCppCode(newCode);
+        break;
+      case "java":
+        setJavaCode(newCode);
+        break;
+      case "javascript":
+        setJsCode(newCode);
+        break;
+      case "python":
+        setPythonCode(newCode);
+        break;
+      case "golang":
+        setGolangCode(newCode);
+        break;
+      default:
+        break;
+    }
+    setCode(newCode);
+  };
 
   return (
     <div className="w-full h-full">
       <div className="flex items-center justify-between">
         <LanguageSelect
-          data={["javascript", "typescript", "python", "java"]}
+          data={["javascript", "python", "java", "c", "cpp", "golang"]}
           onSelect={handleLanguageSelect}
         />
         <div className="mx-9 ">
@@ -104,12 +171,15 @@ export const CodeEditor = () => {
       </div>
       <Editor
         className="h-full"
-        onChange={(e) => setCode(e || "")}
+        onChange={(value, e) => {
+          // setCode(value || "");
+          handleCodeChange(value || "", language);
+        }}
         height="94%"
         defaultLanguage="javascript"
         language={language}
-        defaultValue="// some comment"
         theme="vs-dark"
+        value={code}
       />
     </div>
   );
