@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { generatePID } from "@/lib/generatePID";
 import { PollAPI } from "@/lib/pollAPI";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   cCodeatom,
   codeResponseState,
@@ -21,6 +21,9 @@ import {
 } from "@/atoms/codeSubmission.atom";
 
 import { languageAtom } from "@/atoms/language.atom";
+import { isUserLoggedIn } from "@/atoms/user.atom";
+import toast from "react-hot-toast";
+import { set } from "react-hook-form";
 
 export const CodeEditor = () => {
   const [language, setLanguage] = useRecoilState(languageAtom);
@@ -34,11 +37,15 @@ export const CodeEditor = () => {
   const [jsCode, setJsCode] = useRecoilState(jsCodeatom);
   const [pythonCode, setPythonCode] = useRecoilState(pythonCodeatom);
   const [golangCode, setGolangCode] = useRecoilState(golangCodeatom);
+  const isUserLogged = useRecoilValue(isUserLoggedIn);
   const handleLanguageSelect = (value: string) => {
     setLanguage(value);
   };
   const handleSubmit = async () => {
     try {
+      if (!isUserLogged) {
+        return toast.error("Please login to run the code");
+      }
       let pid = generatePID();
       setLoading(true);
       let { data } = await axios.post(
@@ -60,11 +67,18 @@ export const CodeEditor = () => {
       setCodeResponse(await result);
       setLoading(false);
       setError(null);
-    } catch (error) {}
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   const handleRun = async () => {
     try {
+      if (!isUserLogged) {
+        return toast.error("Please login to run the code");
+      }
+      console.log(isUserLogged, "gasdf");
+
       let pid = generatePID();
       setLoading(true);
       console.log("loading", codeResponse);
@@ -99,7 +113,9 @@ export const CodeEditor = () => {
       console.log("loaded resiu;t", codeResponse);
 
       setError(null);
-    } catch (error) {}
+    } catch (error) {
+      setLoading(false);
+    }
   };
   useEffect(() => {
     let newCode;
@@ -163,16 +179,26 @@ export const CodeEditor = () => {
           onSelect={handleLanguageSelect}
         />
         <div className="mx-9 ">
-          <Button onClick={handleRun} className="mx-4">
+          <Button
+            onClick={handleRun}
+            className="mx-4 "
+            disabled={!loading ? true : false}
+          >
             Run
           </Button>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button
+            onClick={handleSubmit}
+            // disabled={!loading ? true : false}
+            // className="disabled:text-slate-900 "
+            disabled={!loading ? true : false}
+          >
+            Submit
+          </Button>
         </div>
       </div>
       <Editor
-        className="h-full"
+        className="h-full "
         onChange={(value, e) => {
-          // setCode(value || "");
           handleCodeChange(value || "", language);
         }}
         height="94%"

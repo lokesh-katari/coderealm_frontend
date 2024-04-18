@@ -21,9 +21,7 @@ import { PollAPI } from "@/lib/pollAPI";
 const Page = () => {
   const [language, setLanguage] = React.useState("javascript");
   const [code, setCode] = React.useState<string>("");
-  const [sizes, setSizes] = useState<(number | string)[]>([250, "auto"]);
-  const [sizes1, setSizes1] = useState<(number | string)[]>([400, "auto"]);
-  const [sizes2, setSizes2] = useState<(number | string)[]>([500, "auto"]);
+  const [sizes, setSizes] = useState<(number | string)[]>([550, "auto"]);
   let output = useRecoilValue(codeResponseState);
   const [codeResponse, setCodeResponse] = useRecoilState(codeResponseState);
   const [loading, setLoading] = useRecoilState(codeSubmissionLoadingState);
@@ -90,13 +88,26 @@ const Page = () => {
         >
           <div className="flex justify-between border-x-slate-200">
             <LanguageSelect
-              data={["asdf", "sdfasdf"]}
+              data={[
+                "python",
+                "javascript",
+                "java",
+                "c",
+                "cpp",
+                "c#",
+                "golang",
+                "ruby",
+                "kotlin",
+                "rust",
+                "typescript",
+              ]}
               onSelect={handleChange}
             />
             <Button
               variant="outline"
               onClick={handleRun}
-              className="dark text-slate-300"
+              className="dark text-slate-300 "
+              disabled={!loading ? true : false}
             >
               Run
             </Button>
@@ -108,7 +119,7 @@ const Page = () => {
               height="94%"
               defaultLanguage="javascript"
               language={language}
-              defaultValue="// some comment"
+              value={code}
               theme="vs-dark"
             />
           </div>
