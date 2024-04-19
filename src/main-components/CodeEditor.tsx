@@ -23,9 +23,19 @@ import {
 import { languageAtom } from "@/atoms/language.atom";
 import { isUserLoggedIn } from "@/atoms/user.atom";
 import toast from "react-hot-toast";
-import { set } from "react-hook-form";
+import Cookies from "js-cookie";
+import { authClient } from "@/lib/authServiceClient";
+import { UpdateUserSubmissionsRequest } from "@/proto/auth_proto/auth_pb";
+import { Metadata } from "grpc-web";
 
-export const CodeEditor = () => {
+type CodeEditorProps = {
+  queId: string;
+  Difficulty: string;
+};
+export const CodeEditor: React.FC<CodeEditorProps> = ({
+  queId,
+  Difficulty,
+}) => {
   const [language, setLanguage] = useRecoilState(languageAtom);
   const [codeResponse, setCodeResponse] = useRecoilState(codeResponseState);
   const [loading, setLoading] = useRecoilState(codeSubmissionLoadingState);
@@ -65,7 +75,26 @@ export const CodeEditor = () => {
       );
       const result = PollAPI(`/api/pollgraphqlresult/?pid=${pid}`, 500, 10);
       setCodeResponse(await result);
-      setLoading(false);
+      const authToken = Cookies.get("token");
+      console.log(authToken, "authToken");
+      const metadata: Metadata = {};
+      if (authToken) {
+        let req = new UpdateUserSubmissionsRequest();
+
+        metadata["authorization"] = authToken;
+
+        req.setToken(authToken);
+        req.setQueid(queId);
+        req.setDifficulty(Difficulty);
+        console.log(req.toObject());
+
+        let updatesUser = await authClient.updateUserSubmissions(req, metadata);
+
+        console.log("req", req);
+        console.log(updatesUser);
+        setLoading(false);
+      }
+
       setError(null);
     } catch (error) {
       setLoading(false);
@@ -143,7 +172,16 @@ export const CodeEditor = () => {
         newCode = "";
     }
     setCode(newCode);
-  }, [language, cCode, cppCode, javaCode, jsCode, pythonCode, golangCode]);
+  }, [
+    language,
+    cCode,
+    cppCode,
+    javaCode,
+    jsCode,
+    pythonCode,
+    golangCode,
+    setCode,
+  ]);
 
   const handleCodeChange = (newCode: string, lang: string) => {
     switch (lang) {
@@ -182,7 +220,7 @@ export const CodeEditor = () => {
           <Button
             onClick={handleRun}
             className="mx-4 "
-            disabled={!loading ? true : false}
+            disabled={loading ? true : false}
           >
             Run
           </Button>
@@ -190,7 +228,7 @@ export const CodeEditor = () => {
             onClick={handleSubmit}
             // disabled={!loading ? true : false}
             // className="disabled:text-slate-900 "
-            disabled={!loading ? true : false}
+            disabled={loading ? true : false}
           >
             Submit
           </Button>

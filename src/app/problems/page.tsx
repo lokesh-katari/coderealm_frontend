@@ -61,7 +61,7 @@ export type templates = {
     hiddenTestCode: string;
   };
 };
-const page = () => {
+const Page = () => {
   const [problems, setProblems] = React.useState<Problem[]>([]);
   const [loading, setLoading] = React.useState(true);
   useEffect(() => {
@@ -132,4 +132,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

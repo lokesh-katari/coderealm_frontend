@@ -29,7 +29,7 @@ const ProblemTemplate: React.FC<ProblemTemplateProps> = ({
       <div className="text-xl p-1 text-left ">
         {testCases?.map((testCase, index) => {
           return (
-            <div className="mt-3">
+            <div className="mt-3" key={index}>
               <div>Testcase {index + 1} :</div>
               <div className="bg-zinc-700 rounded-2xl mt-2 p-2">
                 <div className="text-xl p-1 text-left">

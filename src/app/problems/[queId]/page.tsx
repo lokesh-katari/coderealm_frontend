@@ -12,15 +12,14 @@ import {
 } from "@/atoms/codeSubmission.atom";
 import { CodeEditor } from "@/main-components/CodeEditor";
 import TestCasesPassed from "@/main-components/TestCasesPassed";
-import { rgbToHex } from "@mui/material";
-import { useParams, useSearchParams } from "next/navigation";
+
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import SplitPane, { Pane } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
 import { Problem, templates } from "../page";
 import { languageAtom } from "@/atoms/language.atom";
-import Spinner from "@/main-components/Spinner";
 import SubmissionSkeleton from "@/main-components/SubmissionSkeleton";
 import ProblemTemplate from "@/main-components/ProblemTemplate";
 import ProblemSkeleton from "@/main-components/ProblemSkeleton";
@@ -60,7 +59,7 @@ const Page = () => {
       setTestCases(data.problems.testCases);
       setTemplate(data.problems.templates);
     })();
-  }, []);
+  }, [queId]);
 
   useEffect(() => {
     if (template) {
@@ -71,7 +70,15 @@ const Page = () => {
       setPythonCode(template.python.userCode);
       setGolangCode(template.golang.userCode);
     }
-  }, [template]);
+  }, [
+    template,
+    setCCode,
+    setCppCode,
+    setJavaCode,
+    setJsCode,
+    setPythonCode,
+    setGolangCode,
+  ]);
   return (
     <div style={{ height: "90vh" }}>
       <SplitPane
@@ -121,7 +128,10 @@ const Page = () => {
               style={{ ...layoutCSS }}
               className="border-red-100 border-2 rounded-xl"
             >
-              <CodeEditor />
+              <CodeEditor
+                queId={queId}
+                Difficulty={problem?.difficulty || "easy"}
+              />
             </div>
           </Pane>
           <SplitPane

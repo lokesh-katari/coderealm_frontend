@@ -211,5 +211,48 @@ export class AuthServiceClient {
     this.methodDescriptorGetUser);
   }
 
+  methodDescriptorUpdateUserSubmissions = new grpcWeb.MethodDescriptor(
+    '/auth.AuthService/UpdateUserSubmissions',
+    grpcWeb.MethodType.UNARY,
+    auth_pb.UpdateUserSubmissionsRequest,
+    auth_pb.UpdateUserSubmissionsResponse,
+    (request: auth_pb.UpdateUserSubmissionsRequest) => {
+      return request.serializeBinary();
+    },
+    auth_pb.UpdateUserSubmissionsResponse.deserializeBinary
+  );
+
+  updateUserSubmissions(
+    request: auth_pb.UpdateUserSubmissionsRequest,
+    metadata: grpcWeb.Metadata | null): Promise<auth_pb.UpdateUserSubmissionsResponse>;
+
+  updateUserSubmissions(
+    request: auth_pb.UpdateUserSubmissionsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: auth_pb.UpdateUserSubmissionsResponse) => void): grpcWeb.ClientReadableStream<auth_pb.UpdateUserSubmissionsResponse>;
+
+  updateUserSubmissions(
+    request: auth_pb.UpdateUserSubmissionsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: auth_pb.UpdateUserSubmissionsResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/auth.AuthService/UpdateUserSubmissions',
+        request,
+        metadata || {},
+        this.methodDescriptorUpdateUserSubmissions,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/auth.AuthService/UpdateUserSubmissions',
+    request,
+    metadata || {},
+    this.methodDescriptorUpdateUserSubmissions);
+  }
+
 }
 

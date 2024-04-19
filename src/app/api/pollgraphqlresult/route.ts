@@ -16,7 +16,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    let data = await db.submissions.findUnique({
+    let data = await db.codesubmissions.findUnique({
       select: {
         pid: true,
         id: true,

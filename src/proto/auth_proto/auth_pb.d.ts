@@ -40,6 +40,52 @@ export namespace GetUserResponse {
   }
 }
 
+export class UpdateUserSubmissionsRequest extends jspb.Message {
+  getToken(): string;
+  setToken(value: string): UpdateUserSubmissionsRequest;
+
+  getQueid(): string;
+  setQueid(value: string): UpdateUserSubmissionsRequest;
+
+  getDifficulty(): string;
+  setDifficulty(value: string): UpdateUserSubmissionsRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateUserSubmissionsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateUserSubmissionsRequest): UpdateUserSubmissionsRequest.AsObject;
+  static serializeBinaryToWriter(message: UpdateUserSubmissionsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateUserSubmissionsRequest;
+  static deserializeBinaryFromReader(message: UpdateUserSubmissionsRequest, reader: jspb.BinaryReader): UpdateUserSubmissionsRequest;
+}
+
+export namespace UpdateUserSubmissionsRequest {
+  export type AsObject = {
+    token: string,
+    queid: string,
+    difficulty: string,
+  }
+}
+
+export class UpdateUserSubmissionsResponse extends jspb.Message {
+  getUser(): User | undefined;
+  setUser(value?: User): UpdateUserSubmissionsResponse;
+  hasUser(): boolean;
+  clearUser(): UpdateUserSubmissionsResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateUserSubmissionsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateUserSubmissionsResponse): UpdateUserSubmissionsResponse.AsObject;
+  static serializeBinaryToWriter(message: UpdateUserSubmissionsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateUserSubmissionsResponse;
+  static deserializeBinaryFromReader(message: UpdateUserSubmissionsResponse, reader: jspb.BinaryReader): UpdateUserSubmissionsResponse;
+}
+
+export namespace UpdateUserSubmissionsResponse {
+  export type AsObject = {
+    user?: User.AsObject,
+  }
+}
+
 export class RegisterUserRequest extends jspb.Message {
   getEmail(): string;
   setEmail(value: string): RegisterUserRequest;
