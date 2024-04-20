@@ -9,10 +9,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 export function TableDemo() {
+  const [submissions, setSubmissions] = useState<
+    {
+      id: string;
+      pid: string;
+      queId: string;
+      email: string | null;
+      code: string;
+      language: string;
+      testcases: number[];
+      runtime: string;
+      memory: string;
+      submittedAt: Date;
+      output: string;
+    }[]
+  >([]);
   const user = useRecoilValue(userState);
   let email = user.email;
   useEffect(() => {
@@ -20,8 +35,10 @@ export function TableDemo() {
       const res = await fetch(`/api/getUserSubmissions?email=${email}`);
       const data = await res.json();
       console.log(data);
+      setSubmissions(data.submissions);
     })();
   }, [email]);
+
   return (
     <div className="">
       <Table>
@@ -35,19 +52,17 @@ export function TableDemo() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {/* {invoices.map((invoice) => (
-            <TableRow key={invoice.invoice}>
-              <TableCell className="font-medium">{invoice.invoice}</TableCell>
-              <TableCell>{invoice.paymentStatus}</TableCell>
-              <TableCell>{invoice.paymentMethod}</TableCell>
+          {submissions.map((submission) => (
+            <TableRow key={submission.id}>
+              <TableCell className="font-medium">{submission.email}</TableCell>
+              <TableCell>{submission.output}</TableCell>
+              <TableCell>{submission.language}</TableCell>
+              <TableCell className="text-right">{submission.runtime}</TableCell>
               <TableCell className="text-right">
-                {invoice.totalAmount}
-              </TableCell>
-              <TableCell className="text-right">
-                {invoice.totalAmount}
+                {submission.submittedAt.toString()}
               </TableCell>
             </TableRow>
-          ))} */}
+          ))}
         </TableBody>
       </Table>
     </div>

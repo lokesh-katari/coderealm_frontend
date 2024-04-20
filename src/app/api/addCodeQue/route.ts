@@ -16,26 +16,32 @@ export const POST = async (request: Request) => {
           python: {
             userCode: 'print("Hello, World!")',
             hiddenTestCode: "# Hidden test code",
+            runTestCode: "",
           },
           golang: {
             userCode: 'fmt.Println("Hello, World!")',
             hiddenTestCode: "// Hidden test code",
+            runTestCode: "",
           },
           c: {
             userCode: 'printf("Hello, World!");',
             hiddenTestCode: "// Hidden test code",
+            runTestCode: "",
           },
           java: {
             userCode: 'System.out.println("Hello, World!");',
             hiddenTestCode: "// Hidden test code",
+            runTestCode: "",
           },
           javascript: {
             userCode: 'console.log("Hello, World!");',
             hiddenTestCode: "// Hidden test code",
+            runTestCode: "",
           },
           cpp: {
             userCode: 'cout << "Hello, World!" << endl;',
             hiddenTestCode: "// Hidden test code",
+            runTestCode: "",
           },
         },
       },

@@ -144,7 +144,7 @@ const Page = () => {
                 style={{ background: "#1e1e1e" }}
                 className="h-full flex flex-col items-center justify-center border-red-100 border-2 rounded-xl"
               >
-                {!loading ? (
+                {loading ? (
                   <>
                     <SubmissionSkeleton />
                   </>

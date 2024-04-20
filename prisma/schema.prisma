@@ -29,12 +29,13 @@ model Codesubmissions {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   pid         String   @unique
   queId       String   @db.ObjectId
+  title       String
+  Accepted    Boolean
   email       String?  @unique
   code        String
   language    String
   testcases   Int[]
   runtime     String
-  memory      String
   submittedAt DateTime @default(now())
   output      String
   question    CodeQue? @relation(fields: [queId], references: [id])
@@ -74,6 +75,7 @@ model Languages {
 
 type LanguageTemplate {
   userCode       String
+  runTestCode    String
   hiddenTestCode String
 }
 
