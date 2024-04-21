@@ -21,7 +21,6 @@ export async function GET(request: Request) {
         pid: true,
         id: true,
         language: true,
-        memory: true,
         runtime: true,
         testcases: true,
         code: true,

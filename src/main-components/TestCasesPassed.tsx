@@ -3,25 +3,22 @@ import axios from "axios";
 
 interface TestCasesPassedProps {
   testcasespassed: number[];
-  mode: "RUN" | "IDLE" | "SUBMIT";
-  id: number;
-  diff: string;
+  mode: string;
 }
 
 const TestCasesPassed: React.FC<TestCasesPassedProps> = ({
   testcasespassed,
   mode,
-  id,
-  diff,
 }) => {
-  const updateUserSubmissions = async (id: number, diff: string) => {
-    if (testcasespassed.length === 5) {
-      await axios.post("/api/v1/user/updatesubmission", {
-        P_id: id,
-        difficultyLevel: diff,
-      });
-    }
-  };
+  // const updateUserSubmissions = async (id: number, diff: string) => {
+  //   if (testcasespassed.length === 5) {
+  //     await axios.post("/api/v1/user/updatesubmission", {
+  //       P_id: id,
+  //       difficultyLevel: diff,
+  //     });
+  //   }
+  // };
+  console.log(mode, "mode");
 
   let totalTestCases: number;
   let result = "WRONG ANSWER";
@@ -34,7 +31,6 @@ const TestCasesPassed: React.FC<TestCasesPassedProps> = ({
 
   if (testcasespassed.length === 5) {
     result = "CORRECT ANSWER";
-    updateUserSubmissions(id, diff);
   }
 
   if (mode === "IDLE") {

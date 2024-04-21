@@ -17,24 +17,28 @@ import {
   javaCodeatom,
   jsCodeatom,
   pythonCodeatom,
+  submissionMode,
   userCode,
 } from "@/atoms/codeSubmission.atom";
 
 import { languageAtom } from "@/atoms/language.atom";
-import { isUserLoggedIn } from "@/atoms/user.atom";
+import { isUserLoggedIn, userState } from "@/atoms/user.atom";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import { authClient } from "@/lib/authServiceClient";
 import { UpdateUserSubmissionsRequest } from "@/proto/auth_proto/auth_pb";
 import { Metadata } from "grpc-web";
+import { title } from "process";
 
 type CodeEditorProps = {
   queId: string;
   Difficulty: string;
+  Title: string;
 };
 export const CodeEditor: React.FC<CodeEditorProps> = ({
   queId,
   Difficulty,
+  Title,
 }) => {
   const [language, setLanguage] = useRecoilState(languageAtom);
   const [codeResponse, setCodeResponse] = useRecoilState(codeResponseState);
@@ -47,7 +51,9 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const [jsCode, setJsCode] = useRecoilState(jsCodeatom);
   const [pythonCode, setPythonCode] = useRecoilState(pythonCodeatom);
   const [golangCode, setGolangCode] = useRecoilState(golangCodeatom);
+  const [mode, setMode] = useRecoilState(submissionMode);
   const isUserLogged = useRecoilValue(isUserLoggedIn);
+  const user = useRecoilValue(userState);
   const handleLanguageSelect = (value: string) => {
     setLanguage(value);
   };
@@ -56,6 +62,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       if (!isUserLogged) {
         return toast.error("Please login to run the code");
       }
+      setMode("SUBMIT");
       let pid = generatePID();
       setLoading(true);
       let { data } = await axios.post(
@@ -64,8 +71,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           code,
           language,
           pid,
-          email: "asdf",
+          email: user.email,
           reqType: "submit",
+          title: Title,
+          queId: queId,
         },
         {
           headers: {
@@ -75,6 +84,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       );
       const result = PollAPI(`/api/pollgraphqlresult/?pid=${pid}`, 500, 10);
       setCodeResponse(await result);
+      console.log(await result, "result");
       const authToken = Cookies.get("token");
       console.log(authToken, "authToken");
       const metadata: Metadata = {};
@@ -106,6 +116,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       if (!isUserLogged) {
         return toast.error("Please login to run the code");
       }
+      setMode("RUN");
       console.log(isUserLogged, "gasdf");
 
       let pid = generatePID();
@@ -120,8 +131,9 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           code,
           language,
           pid,
-          email: "asdf",
-
+          email: user.email,
+          title: Title,
+          queId: queId,
           reqType: "run",
         },
         {
@@ -136,7 +148,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       setCodeResponse(await result);
       console.log("loading finish");
       setCodeResponse("this is result");
-
+      console.log(await result, "result");
       setLoading(false);
       console.log("loading finish", loading);
       console.log("loaded resiu;t", codeResponse);
@@ -185,9 +197,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const handleCodeChange = (newCode: string, lang: string) => {
     switch (lang) {
-      case "c":
-        setCCode(newCode);
-        break;
       case "cpp":
         setCppCode(newCode);
         break;
@@ -213,7 +222,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     <div className="w-full h-full">
       <div className="flex items-center justify-between">
         <LanguageSelect
-          data={["javascript", "python", "java", "c", "cpp", "golang"]}
+          data={["javascript", "python", "java", "cpp", "golang"]}
           onSelect={handleLanguageSelect}
         />
         <div className="mx-9 ">

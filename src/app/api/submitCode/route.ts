@@ -1,7 +1,8 @@
 const { Kafka } = require("kafkajs");
 
 export async function POST(request: Request) {
-  const { code, language, email, pid, queId, reqType } = await request.json();
+  const { code, language, email, pid, queId, reqType, title } =
+    await request.json();
 
   const kafka = new Kafka({
     clientId: "my-app",
@@ -12,7 +13,17 @@ export async function POST(request: Request) {
   await producer.send({
     topic: "code-submission-request",
     messages: [
-      { value: JSON.stringify({ code, language, pid, email, queId, reqType }) },
+      {
+        value: JSON.stringify({
+          code,
+          language,
+          pid,
+          email,
+          queId,
+          reqType,
+          title,
+        }),
+      },
     ],
   });
   await producer.disconnect();

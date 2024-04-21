@@ -54,3 +54,8 @@ export const golangCodeatom = atom({
   key: "golangCode",
   default: "",
 });
+
+export const submissionMode = atom({
+  key: "submissionMode",
+  default: "IDLE",
+});
