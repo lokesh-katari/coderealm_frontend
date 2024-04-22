@@ -17,7 +17,14 @@ export const codeSubmissionLoadingState = atom({
 
 export const codeResponseState = atom({
   key: "codeResponseState",
-  default: "",
+  default: {
+    output: "",
+    error: null,
+    pid: "",
+    language: "",
+    status: "",
+    passesTestcase: [],
+  },
 });
 
 export const userCode = atom({

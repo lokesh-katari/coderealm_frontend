@@ -5,11 +5,11 @@ import {
   codeSubmissionLoadingState,
 } from "@/atoms/codeSubmission.atom";
 import { Button } from "@/components/ui/button";
-import { CodeEditor } from "@/main-components/CodeEditor";
+
 import LanguageSelect from "@/main-components/LanguageSelect";
-import TestCasesPassed from "@/main-components/TestCasesPassed";
+
 import { Editor } from "@monaco-editor/react";
-import { rgbToHex } from "@mui/material";
+
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import SplitPane, { Pane } from "split-pane-react";
@@ -64,7 +64,6 @@ const Page = () => {
 
       setCodeResponse(await result);
       console.log("loading finish");
-      setCodeResponse("this is result");
 
       setLoading(false);
       console.log("loading finish", loading);
@@ -136,7 +135,7 @@ const Page = () => {
               ~ Welcome to CodeRealm..
             </p>
             <pre className="font-mono ">
-              {output}loading:{loading.toString()}
+              {output.output}loading:{loading.toString()}
             </pre>
           </div>
         </Pane>

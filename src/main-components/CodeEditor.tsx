@@ -147,7 +147,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
       setCodeResponse(await result);
       console.log("loading finish");
-      setCodeResponse("this is result");
+      // setCodeResponse("this is result");
       console.log(await result, "result");
       setLoading(false);
       console.log("loading finish", loading);

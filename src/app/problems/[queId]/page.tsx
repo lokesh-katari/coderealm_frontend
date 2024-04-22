@@ -160,7 +160,10 @@ const Page = () => {
                   </>
                 ) : (
                   <>
-                    <TestCasesPassed testcasespassed={[]} mode={mode} />
+                    <TestCasesPassed
+                      testcasespassed={output?.passesTestcase}
+                      mode={mode}
+                    />
                   </>
                 )}
               </div>
@@ -181,7 +184,7 @@ const Page = () => {
                       Submission Queued...
                     </span>
                   ) : (
-                    output
+                    output?.output
                   )}
                 </pre>
               </div>
