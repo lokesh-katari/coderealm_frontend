@@ -160,6 +160,11 @@ const Page = () => {
                   </>
                 ) : (
                   <>
+                    {console.log(
+                      output?.passesTestcase?.length,
+                      output?.passesTestcase,
+                      "output"
+                    )}
                     <TestCasesPassed
                       testcasespassed={output?.passesTestcase}
                       mode={mode}
@@ -184,7 +189,10 @@ const Page = () => {
                       Submission Queued...
                     </span>
                   ) : (
-                    output?.output
+                    <span className="text-slate-300 ml-3">
+                      {output.pid}
+                      {output?.output}thosos safdjsaflkj
+                    </span>
                   )}
                 </pre>
               </div>

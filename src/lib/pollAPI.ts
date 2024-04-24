@@ -4,18 +4,26 @@ export const PollAPI = async (
   interval: number,
   attempts: number
 ) => {
-  let count = 0;
-  const poll = async () => {
-    let { data } = await axios.get(endpoint);
-    console.log(data);
-    if (data.status === "success") {
-      return data;
-    }
-    if (count <= attempts) {
-      count += 1;
-      setTimeout(poll, interval);
-    }
-  };
+  return new Promise(async (resolve, reject) => {
+    let count = 0;
+    const poll = async () => {
+      try {
+        const { data } = await axios.get(endpoint);
+        console.log(data);
+        if (data.status === "success") {
+          console.log(data, "iside the poll api");
 
-  return await poll();
+          resolve(data);
+        } else if (count >= attempts) {
+          reject(new Error("Maximum attempts reached"));
+        } else {
+          count += 1;
+          setTimeout(poll, interval);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    };
+    poll();
+  });
 };

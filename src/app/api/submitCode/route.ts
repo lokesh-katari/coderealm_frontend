@@ -8,6 +8,8 @@ export async function POST(request: Request) {
     clientId: "my-app",
     brokers: [process.env.KAFKA_BROKER],
   });
+  console.log(kafka, "kafka");
+
   const producer = kafka.producer();
   await producer.connect();
   await producer.send({

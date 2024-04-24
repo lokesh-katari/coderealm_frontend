@@ -24,6 +24,9 @@ export async function GET(request: Request) {
         runtime: true,
         testcases: true,
         code: true,
+        output: true,
+        submittedat: true,
+        accepted: true,
       },
       where: {
         pid: pid,

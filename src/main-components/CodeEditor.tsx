@@ -29,6 +29,7 @@ import { authClient } from "@/lib/authServiceClient";
 import { UpdateUserSubmissionsRequest } from "@/proto/auth_proto/auth_pb";
 import { Metadata } from "grpc-web";
 import { title } from "process";
+import { CodeResponseType } from "@/constants/CodeResponseType";
 
 type CodeEditorProps = {
   queId: string;
@@ -58,6 +59,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     setLanguage(value);
   };
   const handleSubmit = async () => {
+    console.log("submitting code from the editor");
     try {
       if (!isUserLogged) {
         return toast.error("Please login to run the code");
@@ -82,9 +84,20 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           },
         }
       );
-      const result = PollAPI(`/api/pollgraphqlresult/?pid=${pid}`, 500, 10);
-      setCodeResponse(await result);
-      console.log(await result, "result");
+      const result = await PollAPI(
+        `/api/pollgraphqlresult/?pid=${pid}`,
+        500,
+        10
+      );
+      setCodeResponse({
+        output: (result as any).data.data.output,
+        status: (result as any).data.status,
+        error: (result as any).data.error,
+        language: (result as any).data.language,
+        pid: (result as any).data.pid,
+        passesTestcase: (result as any).data.data.testcases,
+      });
+      console.log("this is  resutl", result);
       const authToken = Cookies.get("token");
       console.log(authToken, "authToken");
       const metadata: Metadata = {};
@@ -107,6 +120,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
       setError(null);
     } catch (error) {
+      console.log(error, "error");
       setLoading(false);
     }
   };
@@ -124,7 +138,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       console.log("loading", codeResponse);
 
       console.log("running code from the editor");
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
       await axios.post(
         "/api/submitCode",
         {
@@ -142,16 +156,24 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           },
         }
       );
+      const result = await PollAPI(`/api/pollresult/${pid}`, 500, 10);
+      console.log("this is  resutl", result);
+      console.log("this is  resutl", (result as any).data);
 
-      const result = PollAPI(`/api/pollresult/${pid}`, 500, 10);
+      let jsonData = JSON.parse((result as any).data.data);
+      console.log("this is json  resutl", jsonData);
 
-      setCodeResponse(await result);
-      console.log("loading finish");
-      // setCodeResponse("this is result");
-      console.log(await result, "result");
+      setCodeResponse({
+        status: (result as any)?.data?.status,
+        error: (result as any)?.data?.error,
+        language: (result as any)?.data?.language,
+        output: jsonData.output,
+        pid: (result as any)?.data?.pid,
+        passesTestcase: jsonData.testcases,
+      });
+
       setLoading(false);
       console.log("loading finish", loading);
-      console.log("loaded resiu;t", codeResponse);
 
       setError(null);
     } catch (error) {

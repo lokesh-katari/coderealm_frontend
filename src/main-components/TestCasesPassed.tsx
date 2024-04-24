@@ -48,8 +48,9 @@ const TestCasesPassed: React.FC<TestCasesPassedProps> = ({
       });
     } else {
       resultDivs.forEach((resultDiv, index) => {
+        console.log(index, "tjo so s asdindex");
         const testCaseNumber = index + 1;
-        if (testcasespassed.includes(index)) {
+        if (testcasespassed.includes(index + 1)) {
           resultDiv.textContent = `Test Case ${testCaseNumber}: Passed`;
           resultDiv.classList.add("passed");
         } else {

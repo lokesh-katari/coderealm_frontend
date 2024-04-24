@@ -1,34 +1,36 @@
 
-# FROM node:alpine 
+FROM node:alpine 
 
-# WORKDIR /app  
+WORKDIR /app  
 
-# COPY package*.json ./  
+COPY package*.json ./  
 
-# RUN npm ci  
+RUN npm ci  
 
-# COPY . .  
+COPY . .  
 
+# RUN npm run dev
+
+EXPOSE 3000  
+
+RUN npx prisma generate
+
+CMD ["npm", "run","dev"]  
+# FROM node:alpine as builder
+# WORKDIR /my-space
+
+# COPY package.json package-lock.json ./
+# RUN npm ci
+# COPY . .
 # RUN npm run build
 
-# EXPOSE 3000  
-
-# CMD ["npm", "start"]  
-FROM node:alpine as builder
-WORKDIR /my-space
-
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-FROM node:alpine as runner
-WORKDIR /my-space
-COPY --from=builder /my-space/package.json .
-COPY --from=builder /my-space/package-lock.json .
-COPY --from=builder /my-space/next.config.mjs ./
-COPY --from=builder /my-space/public ./public
-COPY --from=builder /my-space/.next/standalone ./
-COPY --from=builder /my-space/.next/static ./.next/static
-EXPOSE 3000
-CMD ["node", "./server.js"]
+# FROM node:alpine as runner
+# WORKDIR /my-space
+# COPY --from=builder /my-space/package.json .
+# COPY --from=builder /my-space/package-lock.json .
+# COPY --from=builder /my-space/next.config.mjs ./
+# COPY --from=builder /my-space/public ./public
+# COPY --from=builder /my-space/.next/standalone ./
+# COPY --from=builder /my-space/.next/static ./.next/static
+# EXPOSE 3000
+# CMD ["node", "./server.js"]

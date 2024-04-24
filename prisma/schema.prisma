@@ -10,33 +10,22 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  // url      = "mongodb+srv://lokesh:21341A0571@cluster0.ytsos7l.mongodb.net/?retryWrites=true&w=majority"
-  url      = env("DATABASE_URL")
-  // relationMode = "prisma"
+
+  url = env("DATABASE_URL")
 }
 
-// ID          primitive.ObjectID `bson:"_id,omitempty"`
-// PID         string             `json:"pid"`
-// QueID       primitive.ObjectID `bson:"queId,omitempty"`
-// Email       string             `json:"email"`
-// Language    string             `json:"language"`
-// Code        string             `json:"code"`
-// Output      string             `json:"output"`
-// SubmittedAT time.Time          `json:"submittedAt"`
-// Runtime     string             `json:"runtime"`
-// Memory      string             `json:"memory"`
 model Codesubmissions {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   pid         String   @unique
   queId       String   @db.ObjectId
   title       String
-  Accepted    Boolean
+  accepted    Boolean
   email       String?  @unique
   code        String
   language    String
   testcases   Int[]
   runtime     String
-  submittedAt DateTime @default(now())
+  submittedat DateTime @default(now())
   output      String
   question    CodeQue? @relation(fields: [queId], references: [id])
 
