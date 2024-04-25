@@ -12,10 +12,24 @@ import {
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
+function formatDateWithTime(dateString: string): string {
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    return "Invalid Date";
+  }
+
+  const formattedDate = date.toISOString().split("T")[0];
+  const formattedTime = date.toISOString().split("T")[1].split(".")[0];
+  const formattedTime24h = formattedTime.substring(0, 5);
+
+  return `${formattedDate} ${formattedTime24h}`;
+}
+
 export function TableDemo() {
   const [submissions, setSubmissions] = useState<
     {
       id: string;
+      title: string;
       pid: string;
       queId: string;
       email: string | null;
@@ -24,8 +38,9 @@ export function TableDemo() {
       testcases: number[];
       runtime: string;
       memory: string;
-      submittedAt: Date;
+      submittedat: string;
       output: string;
+      accepted: boolean;
     }[]
   >([]);
   const user = useRecoilValue(userState);
@@ -54,12 +69,12 @@ export function TableDemo() {
         <TableBody>
           {submissions.map((submission) => (
             <TableRow key={submission.id}>
-              <TableCell className="font-medium">{submission.email}</TableCell>
-              <TableCell>{submission.output}</TableCell>
+              <TableCell className="font-medium">{submission.title}</TableCell>
+              <TableCell>{`${submission.accepted}`}</TableCell>
               <TableCell>{submission.language}</TableCell>
               <TableCell className="text-right">{submission.runtime}</TableCell>
               <TableCell className="text-right">
-                {submission.submittedAt.toString()}
+                {formatDateWithTime(submission.submittedat)}
               </TableCell>
             </TableRow>
           ))}

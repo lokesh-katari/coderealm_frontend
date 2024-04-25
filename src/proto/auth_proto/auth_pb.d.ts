@@ -2,6 +2,50 @@ import * as jspb from 'google-protobuf'
 
 
 
+export class ChangePasswordRequest extends jspb.Message {
+  getToken(): string;
+  setToken(value: string): ChangePasswordRequest;
+
+  getOldpassword(): string;
+  setOldpassword(value: string): ChangePasswordRequest;
+
+  getNewpassword(): string;
+  setNewpassword(value: string): ChangePasswordRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ChangePasswordRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ChangePasswordRequest): ChangePasswordRequest.AsObject;
+  static serializeBinaryToWriter(message: ChangePasswordRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ChangePasswordRequest;
+  static deserializeBinaryFromReader(message: ChangePasswordRequest, reader: jspb.BinaryReader): ChangePasswordRequest;
+}
+
+export namespace ChangePasswordRequest {
+  export type AsObject = {
+    token: string,
+    oldpassword: string,
+    newpassword: string,
+  }
+}
+
+export class ChangePasswordResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): ChangePasswordResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ChangePasswordResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ChangePasswordResponse): ChangePasswordResponse.AsObject;
+  static serializeBinaryToWriter(message: ChangePasswordResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ChangePasswordResponse;
+  static deserializeBinaryFromReader(message: ChangePasswordResponse, reader: jspb.BinaryReader): ChangePasswordResponse;
+}
+
+export namespace ChangePasswordResponse {
+  export type AsObject = {
+    success: boolean,
+  }
+}
+
 export class GetUserRequest extends jspb.Message {
   getToken(): string;
   setToken(value: string): GetUserRequest;

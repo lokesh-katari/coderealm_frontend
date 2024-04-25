@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-type User = {
+export type User = {
   email: string;
   name: string;
   easyProblemCount: number;

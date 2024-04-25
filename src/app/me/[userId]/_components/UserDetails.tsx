@@ -7,7 +7,10 @@ import { z } from "zod";
 import { AuthServiceClient } from "@/proto/auth_proto/AuthServiceClientPb";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { RegisterUserRequest } from "@/proto/auth_proto/auth_pb";
+import {
+  ChangePasswordRequest,
+  RegisterUserRequest,
+} from "@/proto/auth_proto/auth_pb";
 import {
   Form,
   FormControl,
@@ -18,9 +21,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { authClient } from "@/lib/authServiceClient";
+import { useRecoilState } from "recoil";
+import { User, userState } from "@/atoms/user.atom";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -36,6 +42,7 @@ const formSchema = z.object({
 
 const UserDetails = () => {
   const router = useRouter();
+  const [user, setUser] = useRecoilState(userState);
   type FormValues = {
     email: string;
     password: string;
@@ -48,17 +55,35 @@ const UserDetails = () => {
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
     console.log(values);
     try {
-      const client = new AuthServiceClient("auth:50051");
-      const req = new RegisterUserRequest();
-      req.setEmail("lokeshk123@gmail.com");
-      req.setPassword("lokesh123");
-      console.log(client, "client");
-      let resp = await client.loginUser(req, null);
-      console.log(resp, "resp");
+      const req = new ChangePasswordRequest();
+      req.setNewpassword("lokeshk123@gmail.com");
+      req.setOldpassword("lokesh123");
+      req.setToken("token");
+      let res = await authClient.changePassword(req, {});
+      if (res.getSuccess()) {
+        toast.success("password changed successfully");
+      } else {
+        toast.error("error changing password");
+        return;
+      }
 
-      // router.push("/home");
+      setUser({} as User);
+
+      Cookies.remove("token");
+      router.push("/login");
     } catch (error) {
-      toast.error("error registering");
+      toast.error("error changing password");
+      console.log(error);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      setUser({} as User);
+      Cookies.remove("token");
+      router.push("/login");
+    } catch (error) {
+      toast.error("error logging out");
       console.log(error);
     }
   };
@@ -96,9 +121,7 @@ const UserDetails = () => {
                             {...field}
                           />
                         </FormControl>
-                        {/* <FormDescription>
-                        This is your public display name.
-                      </FormDescription> */}
+
                         <FormMessage />
                       </FormItem>
                     )}
@@ -139,7 +162,7 @@ const UserDetails = () => {
                               {...field}
                             />
                           </FormControl>
-  
+
                           <FormMessage />
                         </FormItem>
                       )}
@@ -182,6 +205,7 @@ const UserDetails = () => {
             <button
               type="button"
               className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
+              onClick={logout}
             >
               <span className="mr-2 inline-block">
                 <svg

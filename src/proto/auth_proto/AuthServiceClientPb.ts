@@ -254,5 +254,48 @@ export class AuthServiceClient {
     this.methodDescriptorUpdateUserSubmissions);
   }
 
+  methodDescriptorChangePassword = new grpcWeb.MethodDescriptor(
+    '/auth.AuthService/ChangePassword',
+    grpcWeb.MethodType.UNARY,
+    auth_pb.ChangePasswordRequest,
+    auth_pb.ChangePasswordResponse,
+    (request: auth_pb.ChangePasswordRequest) => {
+      return request.serializeBinary();
+    },
+    auth_pb.ChangePasswordResponse.deserializeBinary
+  );
+
+  changePassword(
+    request: auth_pb.ChangePasswordRequest,
+    metadata: grpcWeb.Metadata | null): Promise<auth_pb.ChangePasswordResponse>;
+
+  changePassword(
+    request: auth_pb.ChangePasswordRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: auth_pb.ChangePasswordResponse) => void): grpcWeb.ClientReadableStream<auth_pb.ChangePasswordResponse>;
+
+  changePassword(
+    request: auth_pb.ChangePasswordRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: auth_pb.ChangePasswordResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/auth.AuthService/ChangePassword',
+        request,
+        metadata || {},
+        this.methodDescriptorChangePassword,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/auth.AuthService/ChangePassword',
+    request,
+    metadata || {},
+    this.methodDescriptorChangePassword);
+  }
+
 }
 
