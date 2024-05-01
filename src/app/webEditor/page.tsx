@@ -6,10 +6,11 @@ import {
   codeSubmissionLoadingState,
 } from "@/atoms/codeSubmission.atom";
 import { Button } from "@/components/ui/button";
-
+import * as monaco from "monaco-editor";
 import LanguageSelect from "@/main-components/LanguageSelect";
 
 import { Editor } from "@monaco-editor/react";
+import "monaco-editor/esm/vs/basic-languages/css/css.contribution";
 
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -18,10 +19,19 @@ import "split-pane-react/esm/themes/default.css";
 import axios from "axios";
 import { generatePID } from "@/lib/generatePID";
 import { PollAPI } from "@/lib/pollAPI";
+import "monaco-editor/esm/vs/basic-languages/html/html.contribution";
+
+// Register the HTML language definition
+monaco.languages.register({ id: "html" });
+monaco.languages.register({ id: "css" });
 
 const Page = () => {
   const [language, setLanguage] = React.useState("javascript");
-  const [code, setCode] = React.useState<string>("");
+  const [html, setHtml] = React.useState("");
+  const [css, setCss] = React.useState("");
+  const [js, setJs] = React.useState("");
+  const [doc, setDoc] = React.useState("");
+
   const [sizes, setSizes] = useState<(number | string)[]>([650, "auto"]);
   const [sizes1, setSizes1] = useState<(number | string)[]>([250, "auto"]);
 
@@ -66,11 +76,10 @@ const Page = () => {
             <div style={{ ...layoutCSS, background: "#1e1e1e" }}>
               <Editor
                 className="h-full"
-                onChange={(e) => setCode(e || "")}
+                onChange={(e) => setHtml(e || "")}
                 height="94%"
-                defaultLanguage="javascript"
-                language={language}
-                value={code}
+                language="html"
+                value={html}
                 theme="vs-dark"
               />
             </div>
@@ -88,11 +97,10 @@ const Page = () => {
             <div style={{ ...layoutCSS, background: "#1e1e1e" }}>
               <Editor
                 className="h-full"
-                onChange={(e) => setCode(e || "")}
+                onChange={(e) => setCss(e || "")}
                 height="94%"
-                defaultLanguage="javascript"
-                language={language}
-                value={code}
+                language="css"
+                value={css}
                 theme="vs-dark"
               />
             </div>
@@ -110,39 +118,27 @@ const Page = () => {
             <div style={{ ...layoutCSS, background: "#1e1e1e" }}>
               <Editor
                 className="h-full"
-                onChange={(e) => setCode(e || "")}
+                onChange={(e) => setJs(e || "")}
                 height="94%"
-                defaultLanguage="javascript"
-                language={language}
-                value={code}
+                language={"javascript"}
+                value={js}
                 theme="vs-dark"
               />
             </div>
           </Pane>
         </SplitPane>
 
-        <Pane className="pl-1" minSize={"30%"} maxSize={"70%"}>
-          <div
-            style={{ background: "#1e1e1e" }}
-            className=" h-full flex flex-col border-x-slate-200
-              border-2
-              rounded-xl overflow-auto p-4"
-          >
-            <p className="font-mono " style={{ color: "rgb(9, 186, 30)" }}>
-              ~ Welcome to CodeRealm..
-            </p>
-
-            <div className="flex items-center space-x-2 p-2">
-              <span className="text-slate-200 animate-pulse font-bold">
-                Submission queued
-              </span>
-              <span className="animate-pulse  ">
-                <span className="animate-bounce inline-block w-[5px] h-[5px] rounded-full bg-slate-200 mr-1 [animation-delay:-0.15s]"></span>
-                <span className="animate-bounce inline-block w-[5px] h-[5px] rounded-full bg-slate-200 mr-1  [animation-delay:-0.3s]"></span>
-                <span className="animate-bounce inline-block w-[5px] h-[5px] rounded-full bg-slate-200  "></span>
-              </span>
-            </div>
-          </div>
+        <Pane
+          minSize={"30%"}
+          maxSize={"70%"}
+          className=" border-2 rounded-xl bg-slate-900 ml-1"
+        >
+          <div className="flex justify-between border-x-slate-200">
+            <Button variant="ghost" className="dark text-slate-300 ">
+              Preview
+            </Button>
+          </div>{" "}
+          <div className="flex items-center space-x-2 p-2 bg-white h-full"></div>
         </Pane>
       </SplitPane>
     </div>
