@@ -130,6 +130,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       if (!isUserLogged) {
         return toast.error("Please login to run the code");
       }
+      console.log("this is code", code);
       setMode("RUN");
       console.log(isUserLogged, "gasdf");
 
@@ -142,7 +143,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       await axios.post(
         "/api/submitCode",
         {
-          code,
+          code: code,
           language,
           pid,
           email: user.email,

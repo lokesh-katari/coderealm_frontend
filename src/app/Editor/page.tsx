@@ -1,5 +1,6 @@
 "use client";
 import {
+  codeGeneralResponseState,
   codeResponseState,
   codeSubmissionErrorState,
   codeSubmissionLoadingState,
@@ -22,8 +23,10 @@ const Page = () => {
   const [language, setLanguage] = React.useState("javascript");
   const [code, setCode] = React.useState<string>("");
   const [sizes, setSizes] = useState<(number | string)[]>([550, "auto"]);
-  let output = useRecoilValue(codeResponseState);
-  const [codeResponse, setCodeResponse] = useRecoilState(codeResponseState);
+  let codeOutput = useRecoilValue(codeGeneralResponseState);
+  const [codeResponse, setCodeResponse] = useRecoilState(
+    codeGeneralResponseState
+  );
   const [loading, setLoading] = useRecoilState(codeSubmissionLoadingState);
   const [error, setError] = useRecoilState(codeSubmissionErrorState);
 
@@ -60,9 +63,10 @@ const Page = () => {
         }
       );
 
-      const result = PollAPI(`/api/pollresult/${pid}`, 500, 10);
-
-      setCodeResponse(await result);
+      const result = await PollAPI(`/api/pollresult/${pid}`, 500, 10);
+      setCodeResponse({
+        output: (result as any)?.data.output,
+      });
       console.log("loading finish");
 
       setLoading(false);
@@ -93,12 +97,12 @@ const Page = () => {
                 "java",
                 "c",
                 "cpp",
-                "c#",
+                "csharp",
                 "golang",
                 "ruby",
-                "kotlin",
                 "rust",
-                "typescript",
+                "swift",
+                "php",
               ]}
               onSelect={handleChange}
             />
@@ -106,7 +110,7 @@ const Page = () => {
               variant="outline"
               onClick={handleRun}
               className="dark text-slate-300 "
-              disabled={!loading ? true : false}
+              disabled={loading ? true : false}
             >
               Run
             </Button>
@@ -134,9 +138,22 @@ const Page = () => {
             <p className="font-mono " style={{ color: "rgb(9, 186, 30)" }}>
               ~ Welcome to CodeRealm..
             </p>
-            <pre className="font-mono ">
-              {output.output}loading:{loading.toString()}
-            </pre>
+            {loading ? (
+              <div className="flex items-center space-x-2 p-2">
+                <span className="text-slate-200 animate-pulse font-bold">
+                  Submission queued
+                </span>
+                <span className="animate-pulse  ">
+                  <span className="animate-bounce inline-block w-[5px] h-[5px] rounded-full bg-slate-200 mr-1 [animation-delay:-0.15s]"></span>
+                  <span className="animate-bounce inline-block w-[5px] h-[5px] rounded-full bg-slate-200 mr-1  [animation-delay:-0.3s]"></span>
+                  <span className="animate-bounce inline-block w-[5px] h-[5px] rounded-full bg-slate-200  "></span>
+                </span>
+              </div>
+            ) : (
+              <div className="h-full pl-1">
+                <pre className="text-slate-300">{codeOutput.output}</pre>
+              </div>
+            )}
           </div>
         </Pane>
       </SplitPane>

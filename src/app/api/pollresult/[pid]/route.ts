@@ -37,10 +37,7 @@ export async function GET(
     return Response.json({
       status: "success",
       data: {
-        code: "console.log('Hello, World!')",
-        language: "javascript",
-        pid: pid,
-        data: data,
+        output: data,
       },
     });
   } catch (error) {

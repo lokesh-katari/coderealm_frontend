@@ -81,6 +81,13 @@ export const Navbar = () => {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem className="text-slate-300">
+              <Link href="/webEditor" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  WEB Editor
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>{" "}
+            <NavigationMenuItem className="text-slate-300">
               <Link href="/Editor" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Editor

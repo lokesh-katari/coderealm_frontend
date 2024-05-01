@@ -27,6 +27,13 @@ export const codeResponseState = atom({
   },
 });
 
+export const codeGeneralResponseState = atom({
+  key: "codeGeneralResponseState",
+  default: {
+    output: "",
+  },
+});
+
 export const userCode = atom({
   key: "userCode",
   default: "",
