@@ -38,10 +38,7 @@ export default function Home() {
         >
           Welcome to CodeRealm
         </h1>
-        <p
-          className="text-5xl text-slate-300 pl-2 animate__animated animate__fadeInUp "
-          style={{ fontFamily: "Anek Bangla, sans-serif" }}
-        >
+        <p className="text-5xl text-slate-300 pl-2 animate__animated animate__fadeInUp ">
           Best place to test your coding skills
         </p>
       </div>

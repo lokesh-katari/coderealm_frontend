@@ -6,24 +6,12 @@ import {
   codeSubmissionLoadingState,
 } from "@/atoms/codeSubmission.atom";
 import { Button } from "@/components/ui/button";
-import * as monaco from "monaco-editor";
-import LanguageSelect from "@/main-components/LanguageSelect";
-
 import { Editor } from "@monaco-editor/react";
-import "monaco-editor/esm/vs/basic-languages/css/css.contribution";
 
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import SplitPane, { Pane } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
-import axios from "axios";
-import { generatePID } from "@/lib/generatePID";
-import { PollAPI } from "@/lib/pollAPI";
-import "monaco-editor/esm/vs/basic-languages/html/html.contribution";
-
-// Register the HTML language definition
-monaco.languages.register({ id: "html" });
-monaco.languages.register({ id: "css" });
 
 const Page = () => {
   const [language, setLanguage] = React.useState("javascript");
@@ -50,7 +38,7 @@ const Page = () => {
   };
 
   return (
-    <div style={{ height: "92vh" }} className="bg-slate-400 px-1">
+    <div style={{ height: "92vh" }} className="bg-cyan-900 pl-2 pr-2 pt-2 pb-1">
       <SplitPane
         split="vertical"
         sizes={sizes}
@@ -62,16 +50,15 @@ const Page = () => {
           sizes={sizes1}
           onChange={setSizes1}
           sashRender={() => null}
+          // className="space-y-1"
         >
           <Pane
             maxSize={"70%"}
             minSize={"20%"}
-            className=" border-2 rounded-xl bg-slate-900"
+            className="  rounded-xl bg-slate-900  "
           >
-            <div className="flex justify-between border-x-slate-200">
-              <Button variant="ghost" className="dark text-slate-300 ">
-                Html
-              </Button>
+            <div className="flex justify-between bg-red-500 h-8 border-x-slate-200">
+              <Button className=" font-semibold text-white ">HTML</Button>
             </div>{" "}
             <div style={{ ...layoutCSS, background: "#1e1e1e" }}>
               <Editor
@@ -87,12 +74,10 @@ const Page = () => {
           <Pane
             maxSize={"70%"}
             minSize={"20%"}
-            className=" border-2 rounded-xl bg-slate-900"
+            className=" b rounded-xl bg-slate-900 mb-2"
           >
-            <div className="flex justify-between border-x-slate-200">
-              <Button variant="ghost" className="dark text-slate-300 ">
-                Css
-              </Button>
+            <div className="flex justify-between bg-sky-500 h-8 border-x-slate-200">
+              <Button className=" font-semibold text-white ">CSS</Button>
             </div>{" "}
             <div style={{ ...layoutCSS, background: "#1e1e1e" }}>
               <Editor
@@ -107,20 +92,18 @@ const Page = () => {
           </Pane>
           <Pane
             maxSize={"70%"}
-            minSize={"1%"}
-            className=" border-2 rounded-xl bg-slate-900"
+            minSize={"20%"}
+            className="  rounded-xl bg-slate-900 "
           >
-            <div className="flex justify-between border-x-slate-200">
-              <Button variant="ghost" className="dark text-slate-300 ">
-                JavaScript
-              </Button>
+            <div className="flex justify-between bg-yellow-500 h-8 ">
+              <Button className=" font-semibold text-white ">JS</Button>
             </div>{" "}
             <div style={{ ...layoutCSS, background: "#1e1e1e" }}>
               <Editor
                 className="h-full"
                 onChange={(e) => setJs(e || "")}
                 height="94%"
-                language={"javascript"}
+                language="javascript"
                 value={js}
                 theme="vs-dark"
               />
@@ -131,14 +114,12 @@ const Page = () => {
         <Pane
           minSize={"30%"}
           maxSize={"70%"}
-          className=" border-2 rounded-xl bg-slate-900 ml-1"
+          className=" border-2 rounded-xl  border-gray-700 bg-black ml-2"
         >
           <div className="flex justify-between border-x-slate-200">
-            <Button variant="ghost" className="dark text-slate-300 ">
-              Preview
-            </Button>
+            <Button className=" text-white ">Preview</Button>
           </div>{" "}
-          <div className="flex items-center space-x-2 p-2 bg-white h-full"></div>
+          <div className="flex items-center space-x-2  bg-white h-full"></div>
         </Pane>
       </SplitPane>
     </div>

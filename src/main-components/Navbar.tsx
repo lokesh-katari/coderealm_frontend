@@ -65,43 +65,47 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className="flex justify-between p-2 dark bg-slate-950">
+      <div className="flex justify-between p-2 bg-cyan-800">
         <NavigationMenu className="">
           <NavigationMenuList>
             <NavigationMenuItem>
               <Link
                 href="/"
-                className="text-3xl dark font-bold leading-none flex items-center space-x-4"
+                className="text-3xl dark font-bold leading-none flex items-center "
               >
-                <span className="text-slate-300 "> CodeRealm</span>
+                <span className="text-cyan-200 ">
+                  {" "}
+                  Code<span className="text-cyan-50">Realm</span>.
+                </span>
               </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
         <NavigationMenu>
           <NavigationMenuList>
-            <NavigationMenuItem className="text-slate-300">
+            <NavigationMenuItem className=" font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 ">
               <Link href="/webEditor" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  WEB Editor
+                  WebEditor
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>{" "}
-            <NavigationMenuItem className="text-slate-300">
+            <NavigationMenuItem className="font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 mr-">
               <Link href="/Editor" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Editor
                 </NavigationMenuLink>
               </Link>
-            </NavigationMenuItem>{" "}
-            <NavigationMenuItem className="text-slate-300">
+            </NavigationMenuItem>
+            {"  "}
+            <NavigationMenuItem className="font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 mr-2">
               <Link href="/problems" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   All Problems
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>{" "}
-            <NavigationMenuItem className="text-slate-300">
+            <NavigationMenuItem className="font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 mr-2">
               <Link href="/about" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   About
@@ -111,7 +115,7 @@ export const Navbar = () => {
             {isLoggedin ? (
               <>
                 <div className="px-4 ">
-                  <NavigationMenuItem className="text-slate-300 ">
+                  <NavigationMenuItem className="font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 mr-2">
                     <Link href="/me/123">
                       <Avatar>
                         <AvatarImage src="https://github.com/shadcn.png" />
@@ -123,7 +127,7 @@ export const Navbar = () => {
               </>
             ) : (
               <>
-                <NavigationMenuItem className="text-slate-300">
+                <NavigationMenuItem className="font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 mr-2">
                   <Link href="/auth/login" legacyBehavior passHref>
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}
@@ -132,7 +136,7 @@ export const Navbar = () => {
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>{" "}
-                <NavigationMenuItem className="text-slate-300">
+                <NavigationMenuItem className="font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 mr-2">
                   <Link href="/auth/register" legacyBehavior passHref>
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}

@@ -25,11 +25,12 @@ import { languageAtom } from "@/atoms/language.atom";
 import { isUserLoggedIn, userState } from "@/atoms/user.atom";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
-import { authClient } from "@/lib/authServiceClient";
+
 import { UpdateUserSubmissionsRequest } from "@/proto/auth_proto/auth_pb";
 import { Metadata } from "grpc-web";
 import { title } from "process";
 import { CodeResponseType } from "@/constants/CodeResponseType";
+import { authClient } from "@/lib/authServiceClient";
 
 type CodeEditorProps = {
   queId: string;
