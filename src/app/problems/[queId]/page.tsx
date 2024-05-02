@@ -89,7 +89,10 @@ const Page = () => {
     setGolangCode,
   ]);
   return (
-    <div style={{ height: "90vh" }}>
+    <div
+      style={{ height: "90vh", backgroundColor: "#004E63" }}
+      className="mt-2"
+    >
       <SplitPane
         split="vertical"
         sizes={sizes}
@@ -99,7 +102,7 @@ const Page = () => {
         <Pane
           maxSize={"60%"}
           minSize={"30%"}
-          className="border-red-100 border-2 rounded-xl"
+          className="border-cyan-900 border-2 rounded-xl"
         >
           <div
             style={{ background: "#1e1e1e" }}
@@ -129,13 +132,13 @@ const Page = () => {
           onChange={setSizes1}
         >
           <Pane
-            className="border-b-4 border-red-100 rounded-xl"
+            className="border-b-4 border-cyan-900 rounded-xl"
             minSize={"50%"}
             maxSize={"70%"}
           >
             <div
               style={{ ...layoutCSS }}
-              className="border-red-100 border-2 rounded-xl"
+              className="border-cyan-900 border-2 rounded-xl"
             >
               <CodeEditor
                 queId={queId}
@@ -152,7 +155,7 @@ const Page = () => {
             <Pane minSize={"30%"} maxSize={"50%"}>
               <div
                 style={{ background: "#1e1e1e" }}
-                className="h-full flex flex-col items-center justify-center border-red-100 border-2 rounded-xl"
+                className="h-full flex flex-col items-center justify-center border-2 border-cyan-900 rounded-xl"
               >
                 {loading ? (
                   <>
@@ -176,7 +179,7 @@ const Page = () => {
             <Pane className="w-2/6" minSize={"30%"} maxSize={"70%"}>
               <div
                 style={{ background: "#1e1e1e" }}
-                className="border-red-100 h-full flex flex-col bg-black
+                className="border-cyan-900 h-full flex flex-col 
               border-2
               rounded-xl overflow-auto p-4"
               >
@@ -190,8 +193,8 @@ const Page = () => {
                     </span>
                   ) : (
                     <span className="text-slate-300 ml-3">
-                      {output.pid}
-                      {output?.output}thosos safdjsaflkj
+                      {/* {output.pid} */}
+                      {output?.output}
                     </span>
                   )}
                 </pre>

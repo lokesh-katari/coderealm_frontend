@@ -8,7 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Editor } from "@monaco-editor/react";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import SplitPane, { Pane } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
@@ -26,9 +26,22 @@ const Page = () => {
   const [codeResponse, setCodeResponse] = useRecoilState(
     codeGeneralResponseState
   );
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDoc(`
+        <html>
+          <body>${html}</body>
+          <style>${css}</style>
+          <script>${js}</script>
+        </html>
+      `);
+    }, 250);
+
+    return () => clearTimeout(timeout);
+  }, [html, css, js]);
 
   const layoutCSS = {
-    height: "100%",
+    height: "90%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -38,7 +51,7 @@ const Page = () => {
   };
 
   return (
-    <div style={{ height: "92vh" }} className="bg-cyan-900 pl-2 pr-2 pt-2 pb-1">
+    <div style={{ height: "93vh" }} className="bg-cyan-900 pl-2 pr-2 pt-2 pb-1">
       <SplitPane
         split="vertical"
         sizes={sizes}
@@ -50,12 +63,12 @@ const Page = () => {
           sizes={sizes1}
           onChange={setSizes1}
           sashRender={() => null}
-          // className="space-y-1"
+          className="space-y-1"
         >
           <Pane
             maxSize={"70%"}
             minSize={"20%"}
-            className="  rounded-xl bg-slate-900  "
+            className="  rounded-xl bg-slate-900  mb-2 space-y-1 "
           >
             <div className="flex justify-between bg-red-500 h-8 border-x-slate-200">
               <Button className=" font-semibold text-white ">HTML</Button>
@@ -74,9 +87,9 @@ const Page = () => {
           <Pane
             maxSize={"70%"}
             minSize={"20%"}
-            className=" b rounded-xl bg-slate-900 mb-2"
+            className=" b rounded-xl bg-slate-900 mb-2 space-y-1"
           >
-            <div className="flex justify-between bg-sky-500 h-8 border-x-slate-200">
+            <div className="flex justify-between bg-sky-500 h-8 border-x-slate-200 ">
               <Button className=" font-semibold text-white ">CSS</Button>
             </div>{" "}
             <div style={{ ...layoutCSS, background: "#1e1e1e" }}>
@@ -93,7 +106,7 @@ const Page = () => {
           <Pane
             maxSize={"70%"}
             minSize={"20%"}
-            className="  rounded-xl bg-slate-900 "
+            className="  rounded-xl bg-slate-900  "
           >
             <div className="flex justify-between bg-yellow-500 h-8 ">
               <Button className=" font-semibold text-white ">JS</Button>
@@ -119,7 +132,17 @@ const Page = () => {
           <div className="flex justify-between border-x-slate-200">
             <Button className=" text-white ">Preview</Button>
           </div>{" "}
-          <div className="flex items-center space-x-2  bg-white h-full"></div>
+          <div className="flex items-center space-x-2  bg-white h-full">
+            <iframe
+              className="iframe"
+              srcDoc={doc}
+              title="output"
+              sandbox="allow-scripts"
+              frameBorder="0"
+              width="100%"
+              height="100%"
+            />
+          </div>
         </Pane>
       </SplitPane>
     </div>

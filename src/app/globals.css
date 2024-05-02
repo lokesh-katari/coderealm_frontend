@@ -91,3 +91,14 @@
     @apply bg-background text-foreground;
   }
 }
+.background-landing{
+  background: hsla(193, 100%, 19%, 1);
+
+background: linear-gradient(270deg, hsla(193, 100%, 19%, 1) 0%, hsla(186, 94%, 82%, 1) 100%);
+
+background: -moz-linear-gradient(270deg, hsla(193, 100%, 19%, 1) 0%, hsla(186, 94%, 82%, 1) 100%);
+
+background: -webkit-linear-gradient(270deg, hsla(193, 100%, 19%, 1) 0%, hsla(186, 94%, 82%, 1) 100%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#004E63", endColorstr="#A5F3FC", GradientType=1 );
+}

@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-slate-400">
+      <body className=" background-landing">
         <Toaster position="top-center" />
         <RecoilContextProvider>
           <Navbar />

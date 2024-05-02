@@ -74,7 +74,7 @@ const Page = () => {
     })();
   }, []);
   return (
-    <div className=" bg-slate-300 h-screen w-screen ">
+    <div className=" background-landing h-screen w-screen ">
       {loading ? (
         <div className="flex h-screen w-screen justify-center items-center">
           <Spinner />

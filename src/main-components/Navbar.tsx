@@ -83,7 +83,7 @@ export const Navbar = () => {
         </NavigationMenu>
         <NavigationMenu>
           <NavigationMenuList>
-            <NavigationMenuItem className=" font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 ">
+            {/* <NavigationMenuItem className=" font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 ">
               <Link href="/webEditor" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   WebEditor
@@ -96,7 +96,7 @@ export const Navbar = () => {
                   Editor
                 </NavigationMenuLink>
               </Link>
-            </NavigationMenuItem>
+            </NavigationMenuItem> */}
             {"  "}
             <NavigationMenuItem className="font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 mr-2">
               <Link href="/problems" legacyBehavior passHref>

@@ -24,14 +24,18 @@ export function LanguageSelect({
   const lang = useRecoilValue(languageAtom);
   return (
     <Select onValueChange={handleSelect}>
-      <SelectTrigger className="w-[180px] dark text-white ">
+      <SelectTrigger className="w-[180px] dark  text-white ">
         <SelectValue placeholder={`${lang}`} className="" />
       </SelectTrigger>
-      <SelectContent className="dark">
-        <SelectGroup className="dark">
-          <SelectLabel className="dark">Languages</SelectLabel>
+      <SelectContent className="bg-cyan-900 text-cyan-50  ">
+        <SelectGroup className="bg-cyan-900 text-cyan-50 hover:bg-cyan-700 ">
+          <SelectLabel className="hover:bg-cyan-700 p-0">Languages</SelectLabel>
           {data.map((item) => (
-            <SelectItem className="dark" key={item} value={item}>
+            <SelectItem
+              className="bg-cyan-900 hover:bg-cyan-700"
+              key={item}
+              value={item}
+            >
               {item}
             </SelectItem>
           ))}

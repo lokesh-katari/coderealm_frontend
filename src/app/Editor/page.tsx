@@ -77,7 +77,7 @@ const Page = () => {
     } catch (error) {}
   };
   return (
-    <div style={{ height: "93vh" }} className="bg-slate-400 px-1">
+    <div style={{ height: "93vh" }} className=" px-1">
       <SplitPane
         split="vertical"
         sizes={sizes}
@@ -89,7 +89,7 @@ const Page = () => {
           minSize={"30%"}
           className=" border-2 rounded-xl bg-slate-900"
         >
-          <div className="flex justify-between border-x-slate-200">
+          <div className="flex justify-between">
             <LanguageSelect
               data={[
                 "python",
@@ -131,7 +131,7 @@ const Page = () => {
         <Pane className="pl-1" minSize={"30%"} maxSize={"70%"}>
           <div
             style={{ background: "#1e1e1e" }}
-            className=" h-full flex flex-col border-x-slate-200
+            className=" h-full flex flex-col 
               border-2
               rounded-xl overflow-auto p-4"
           >

@@ -244,7 +244,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   return (
     <div className="w-full h-full">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between bg-black ">
         <LanguageSelect
           data={["javascript", "python", "java", "cpp", "golang"]}
           onSelect={handleLanguageSelect}
@@ -252,7 +252,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         <div className="mx-9 ">
           <Button
             onClick={handleRun}
-            className="mx-4 "
+            className=" font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 mr-2"
             disabled={loading ? true : false}
           >
             Run
@@ -260,7 +260,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           <Button
             onClick={handleSubmit}
             // disabled={!loading ? true : false}
-            // className="disabled:text-slate-900 "
+            className="font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 mr-2"
             disabled={loading ? true : false}
           >
             Submit
