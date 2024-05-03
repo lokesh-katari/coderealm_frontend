@@ -29,7 +29,10 @@ CodeRealm is a platform for coding evaluation and question evaluation that suppo
 - **Web Proxy**: Envoy Proxy for the grpc server to web client
 - **Frontend**: Next.js
 - **Styling**: Shadcn UI , Tailwind css
-- **Deployment**: Docker Compose, Kubernetes
+- **Deployment**: Docke
+
+
+r Compose, Kubernetes
 
 
 ## Features
@@ -105,6 +108,9 @@ make sure that you specify the namespace before deployment ,here :coderealm
 
 ![coderealm kubernetes](https://github.com/lokesh-katari/CodeRealm_microservices/assets/111894942/6073e1a4-dbb0-452a-bfe6-c0aef4d22708)
 
+# Demo
+
+https://github.com/lokesh-katari/coderealm_frontend/assets/111894942/1a4c63b3-a781-445a-87fe-800b90d2e607
 ## Contributing
 
 Contributions are welcome! Please feel free to fork the repository and submit pull requests to contribute new features, improvements, or bug fixes.
@@ -112,3 +118,6 @@ Contributions are welcome! Please feel free to fork the repository and submit pu
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+
+
