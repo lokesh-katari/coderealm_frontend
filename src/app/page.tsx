@@ -1,12 +1,10 @@
 "use client";
-import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import landing from "../../public/landing.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./globals.css";
 
-import { isUserLoggedIn, userState } from "@/atoms/user.atom";
 import Link from "next/link";
 
 export default function Home() {

@@ -62,6 +62,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const handleSubmit = async () => {
     console.log("submitting code from the editor");
     try {
+      console.log(isUserLogged, "gasdf")
       if (!isUserLogged) {
         return toast.error("Please login to run the code");
       }
@@ -87,7 +88,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       );
       const result = await PollAPI(
         `/api/pollgraphqlresult/?pid=${pid}`,
-        500,
+        700,
         10
       );
       setCodeResponse({
@@ -98,7 +99,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         pid: (result as any).data.pid,
         passesTestcase: (result as any).data.data.testcases,
       });
-      console.log("this is  resutl", result);
+      console.log("this is  resutl", );
       const authToken = Cookies.get("token");
       console.log(authToken, "authToken");
       const metadata: Metadata = {};
@@ -139,7 +140,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       setLoading(true);
       console.log("loading", codeResponse);
 
-      console.log("running code from the editor");
+     
       // await new Promise((resolve) => setTimeout(resolve, 1000));
       await axios.post(
         "/api/submitCode",
@@ -158,7 +159,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           },
         }
       );
-      const result = await PollAPI(`/api/pollresult/${pid}`, 500, 10);
+      const result = await PollAPI(`/api/pollresult/${pid}`, 700, 10);
       console.log("this is  resutl", result);
       console.log("this is  resutl", (result as any).data);
 
@@ -252,7 +253,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         <div className="mx-9 ">
           <Button
             onClick={handleRun}
-            className=" font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 mr-2"
+            className=" font-semibold text-cyan-50 rounded-full mr-2 border border-gray-500"
             disabled={loading ? true : false}
           >
             Run
@@ -260,7 +261,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           <Button
             onClick={handleSubmit}
             // disabled={!loading ? true : false}
-            className="font-semibold text-cyan-50 rounded-full bg-cyan-700 hover:rounded-full hover:text-black hover:bg-cyan-200 mr-2"
+            className="font-semibold text-cyan-50 rounded-full mr-2 border border-gray-500"
             disabled={loading ? true : false}
           >
             Submit

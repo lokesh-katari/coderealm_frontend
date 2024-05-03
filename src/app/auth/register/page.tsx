@@ -76,9 +76,9 @@ export default function RegisterForm() {
     }
   };
   return (
-    <section>
-      <div className="flex items-center justify-center px-4 py-3 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
-        <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
+    <section className="h-full">
+      <div className=" flex items-center justify-center px-4 py-3 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+        <div className="rounded-2xl py-6 bg-cyan-50 px-4 xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
           <div className="mb-2 flex justify-center">
             <svg
               width="50"
@@ -106,15 +106,15 @@ export default function RegisterForm() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>User name</FormLabel>
+                        <FormLabel className="ml-3">User name</FormLabel>
                         <FormControl>
                           <Input
+                            className="rounded-full  text-black "
                             placeholder="please enter your name"
                             {...field}
-                            className=""
                           />
                         </FormControl>
-                        <FormDescription>
+                        <FormDescription className="ml-3">
                           This is your public display name.
                         </FormDescription>
                         <FormMessage />
@@ -128,9 +128,10 @@ export default function RegisterForm() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel className="ml-3">Email</FormLabel>
                         <FormControl>
                           <Input
+                            className="rounded-full  text-black  "
                             placeholder="please enter your email"
                             {...field}
                           />
@@ -150,14 +151,15 @@ export default function RegisterForm() {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
+                          <FormLabel className="ml-3">Password</FormLabel>
                           <FormControl>
                             <Input
+                              className="rounded-full  text-black  "
                               placeholder="enter your password"
                               {...field}
                             />
                           </FormControl>
-                          <FormDescription>
+                          <FormDescription className="ml-3 text-red-600 font-bold">
                             Password must be at least 6 characters.
                           </FormDescription>
                           <FormMessage />
@@ -171,9 +173,12 @@ export default function RegisterForm() {
                       name="confirmpassword"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Retype you Password</FormLabel>
+                          <FormLabel className="ml-3">
+                            Retype you Password
+                          </FormLabel>
                           <FormControl>
                             <Input
+                              className="rounded-full  text-black  "
                               placeholder="enter your password"
                               {...field}
                             />
@@ -190,7 +195,7 @@ export default function RegisterForm() {
                 <div>
                   <Button
                     type="submit"
-                    className="inline-flex w-full items-center justify-center rounded-md bg-slate-950 px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                    className="inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     Get started <ArrowRight className="ml-2" size={16} />
                   </Button>
@@ -201,7 +206,7 @@ export default function RegisterForm() {
           <div className="mt-3 space-y-3 ">
             <button
               type="button"
-              className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
+              className="relative inline-flex w-full items-center justify-center rounded-full border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
             >
               <span className="mr-2 inline-block">
                 <svg

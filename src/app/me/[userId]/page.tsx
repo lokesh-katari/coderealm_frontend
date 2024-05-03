@@ -15,21 +15,23 @@ export default function UserProfile() {
   return (
     <>
       <PrivateRoute>
-        <div className="h-screen w-screen flex justify-center items-center m-0 ">
-          <div className="h-4/5  w-11/12 grid grid-cols-3 grid-rows-3 gap-4 ">
-            <div className="row-span-3 w-5/6 ">
-              <UserDetails />
-            </div>
-            <div className=" col-span-2">
-              <Submissions
-                problemCount={problemCount}
-                Easy={user.easyProblemCount}
-                Hard={user.hardProblemCount}
-                Medium={user.mediumProblemCount}
-              />
-            </div>
-            <div className=" col-span-2 row-span-2 overflow-y-auto no-scrollbar  border-2 border-black rounded-lg">
-              <TableDemo />
+        <div className="h-[93vh] w-screen flex justify-center items-center m-0 ">
+          <div className="w-4/5">
+            <div className="h-4/5  w-11/12 grid grid-cols-3 grid-rows-3 gap-4 ">
+              <div className="row-span-3 w-5/6 ">
+                <UserDetails />
+              </div>
+              <div className=" col-span-2">
+                <Submissions
+                  problemCount={problemCount}
+                  Easy={user.easyProblemCount}
+                  Hard={user.hardProblemCount}
+                  Medium={user.mediumProblemCount}
+                />
+              </div>
+              <div className=" rounded-xl col-span-2 row-span-2 overflow-y-auto no-scrollbar  border-2 border-black ">
+                <TableDemo />
+              </div>
             </div>
           </div>
         </div>

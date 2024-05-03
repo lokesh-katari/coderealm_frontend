@@ -33,6 +33,7 @@ export const Navbar = () => {
   useEffect(() => {
     const hasToken = async () => {
       const authToken = Cookies.get("token");
+      console.log(isLoggedin, "isUserLoggedIn");
       console.log(authToken, "authToken");
       const metadata: Metadata = {};
       if (authToken) {
@@ -46,13 +47,14 @@ export const Navbar = () => {
         console.log(response.toObject());
         const userData = response.toObject().user;
         console.log(userData);
-        if (userData) {
-          setuser(userData);
+        if (userData !== null) {
+          setuser(userData as any);
+          console.log("setting islogged int to true");
           setLoggedIn(true);
-          toast.success("Welcome back " + userData.name);
+          setHasTokenRun(true);
+          toast.success("Welcome back " + userData?.name);
         }
       }
-      setHasTokenRun(true);
       setShowToast(true);
     };
 

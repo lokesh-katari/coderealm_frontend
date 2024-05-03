@@ -106,7 +106,7 @@ const Page = () => {
           <Pane
             maxSize={"70%"}
             minSize={"20%"}
-            className="  rounded-xl bg-slate-900  "
+            className="  rounded-xl bg-slate-900 "
           >
             <div className="flex justify-between bg-yellow-500 h-8 ">
               <Button className=" font-semibold text-white ">JS</Button>
@@ -127,12 +127,12 @@ const Page = () => {
         <Pane
           minSize={"30%"}
           maxSize={"70%"}
-          className=" border-2 rounded-xl  border-gray-700 bg-black ml-2"
+          className=" border-2 rounded-xl  border-gray-700 bg-black ml-1 "
         >
           <div className="flex justify-between border-x-slate-200">
             <Button className=" text-white ">Preview</Button>
           </div>{" "}
-          <div className="flex items-center space-x-2  bg-white h-full">
+          <div className="flex items-center space-x-2  bg-white h-full ">
             <iframe
               className="iframe"
               srcDoc={doc}

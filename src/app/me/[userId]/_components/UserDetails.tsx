@@ -70,7 +70,7 @@ const UserDetails = () => {
       setUser({} as User);
 
       Cookies.remove("token");
-      router.push("/login");
+      router.push("/auth/login");
     } catch (error) {
       toast.error("error changing password");
       console.log(error);
@@ -81,7 +81,8 @@ const UserDetails = () => {
     try {
       setUser({} as User);
       Cookies.remove("token");
-      router.push("/login");
+      toast.success("logged out successfully");
+      router.push("/auth/login");
     } catch (error) {
       toast.error("error logging out");
       console.log(error);
@@ -114,9 +115,10 @@ const UserDetails = () => {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Name</FormLabel>
+                        <FormLabel className="ml-3">Name</FormLabel>
                         <FormControl>
                           <Input
+                            className="rounded-full  text-black  "
                             placeholder="please enter your email"
                             {...field}
                           />
@@ -133,9 +135,10 @@ const UserDetails = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel className="ml-3">Email</FormLabel>
                         <FormControl>
                           <Input
+                            className="rounded-full  text-black  "
                             placeholder="please enter your email"
                             {...field}
                           />
@@ -155,9 +158,12 @@ const UserDetails = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Current Password</FormLabel>
+                          <FormLabel className="ml-3">
+                            Current Password
+                          </FormLabel>
                           <FormControl>
                             <Input
+                              className="rounded-full  text-black  "
                               placeholder="enter your password"
                               {...field}
                             />
@@ -176,9 +182,10 @@ const UserDetails = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>New Password</FormLabel>
+                          <FormLabel className="ml-3">New Password</FormLabel>
                           <FormControl>
                             <Input
+                              className="rounded-full  text-black  "
                               placeholder="enter your password"
                               {...field}
                             />
@@ -193,7 +200,7 @@ const UserDetails = () => {
                 <div>
                   <Button
                     type="submit"
-                    className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                    className="inline-flex w-full items-center justify-center rounded-full bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     confirm changes <ArrowRight className="ml-2" size={16} />
                   </Button>
@@ -204,7 +211,7 @@ const UserDetails = () => {
           <div className="mt-3 space-y-3">
             <button
               type="button"
-              className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
+              className="relative inline-flex w-full items-center justify-center rounded-full border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
               onClick={logout}
             >
               <span className="mr-2 inline-block">
