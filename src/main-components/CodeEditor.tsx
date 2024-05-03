@@ -163,7 +163,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       console.log("this is  resutl", result);
       console.log("this is  resutl", (result as any).data);
 
-      let jsonData = JSON.parse((result as any).data.data);
+      let jsonData = JSON.parse((result as any).data.output);
       console.log("this is json  resutl", jsonData);
 
       setCodeResponse({

@@ -67,8 +67,10 @@ export function TableDemo() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {submissions.map((submission) => (
-            <TableRow key={submission.id}>
+          {submissions.map((submission,i) => {
+           if(i < 5){
+            return(
+              <TableRow key={submission.id}>
               <TableCell className="font-medium">{submission.title}</TableCell>
               <TableCell>{`${submission.accepted}`}</TableCell>
               <TableCell>{submission.language}</TableCell>
@@ -77,7 +79,9 @@ export function TableDemo() {
                 {formatDateWithTime(submission.submittedat)}
               </TableCell>
             </TableRow>
-          ))}
+            )
+           }
+})}
         </TableBody>
       </Table>
     </div>
