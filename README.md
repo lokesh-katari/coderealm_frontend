@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 <div align="center">
   <img src="https://github.com/lokesh-katari/CodeRealm_microservices/assets/111894942/ec05afd6-43b1-49c0-bb6c-ffb2e7e53d8c" alt="code" />
 </div>
@@ -7,8 +5,22 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 CodeRealm is a platform for coding evaluation and question evaluation that supports multiple programming languages. It enables users to compile and evaluate code snippets in languages such as Java, C++, Python, JavaScript, and Golang, ans also supports 10+ programming languages .It also has the frontend web editor builtin for HTML,CSS and JS . The application was originally built as a monolithic MERN stack application, but has been migrated to microservices architecture with Golang as the backend and Next.js as the frontend.
+
 ## Microservices Repo Link :
  - [Coderealm Microservices](https://github.com/lokesh-katari/Coderealm_microservices)  -- Golang
+
+## Table of Contents
+
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Previous repo Built in MERN](#previous-repository-links-for-the-monolith-architecture)
+- [Features](#features)
+- [Installation and Usage](#installation-and-usage)
+- [Minikube Deployment Architecture](#minikube-deployment-architecture)
+- [Contributing](#contributing)
+- [License](#license)
+- [Demo](#demo)
+
 
 ## Architecture
 ![code final asdf](https://github.com/lokesh-katari/CodeRealm_microservices/assets/111894942/793cb4f8-2f63-4219-a285-e4113e4af6a3)
@@ -29,10 +41,7 @@ CodeRealm is a platform for coding evaluation and question evaluation that suppo
 - **Web Proxy**: Envoy Proxy for the grpc server to web client
 - **Frontend**: Next.js
 - **Styling**: Shadcn UI , Tailwind css
-- **Deployment**: Docke
-
-
-r Compose, Kubernetes
+- **Deployment**: Docker Compose, Kubernetes
 
 
 ## Features
@@ -104,18 +113,22 @@ make sure that you specify the namespace before deployment ,here :coderealm
   kubectl port-forward service/code-frontend-service 8000:8000 -n coderealm
 
   ```
-# Minikube Deployment Archtecture:
+# Minikube Deployment Architecture:
 
 ![coderealm kubernetes](https://github.com/lokesh-katari/CodeRealm_microservices/assets/111894942/6073e1a4-dbb0-452a-bfe6-c0aef4d22708)
 
 # Demo
 
 https://github.com/lokesh-katari/coderealm_frontend/assets/111894942/1a4c63b3-a781-445a-87fe-800b90d2e607
+
 ## Contributing
 
 Contributions are welcome! Please feel free to fork the repository and submit pull requests to contribute new features, improvements, or bug fixes.
 
 ## License
+
+This project is licensed under the [MIT License](LICENSE).
+
 
 This project is licensed under the [MIT License](LICENSE).
 
